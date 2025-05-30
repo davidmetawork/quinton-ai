@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
-import { Check, ArrowRight, ArrowLeft, CreditCard, Shield, Users, Zap } from 'lucide-react'
+import { Check, ArrowLeft, Calendar, Users, Zap, Shield } from 'lucide-react'
 
 export default function SignupPage() {
   const [isAnnual, setIsAnnual] = useState(true)
@@ -15,12 +15,33 @@ export default function SignupPage() {
   const [soloSeats, setSoloSeats] = useState([1])
   const [agencySeats, setAgencySeats] = useState([5])
   const [enterpriseSeats, setEnterpriseSeats] = useState([26])
+  const [soloCredits, setSoloCredits] = useState([0])
+  const [soloInboxes, setSoloInboxes] = useState([0])
+  const [agencyCredits, setAgencyCredits] = useState([0])
+  const [agencyInboxes, setAgencyInboxes] = useState([0])
+  const [enterpriseCredits, setEnterpriseCredits] = useState([0])
+  const [enterpriseInboxes, setEnterpriseInboxes] = useState([0])
+
+  const creditPackages = [
+    { credits: 0, price: 0, annualPrice: 0, label: "No additional credits" },
+    { credits: 1000, price: 70, annualPrice: 60, label: "+1,000 credits" },
+    { credits: 2500, price: 175, annualPrice: 150, label: "+2,500 credits" },
+    { credits: 5000, price: 350, annualPrice: 300, label: "+5,000 credits" },
+    { credits: 10000, price: 700, annualPrice: 600, label: "+10,000 credits" }
+  ]
+
+  const inboxPackages = [
+    { inboxes: 0, price: 0, annualPrice: 0, label: "No additional inboxes" },
+    { inboxes: 5, price: 60, annualPrice: 50, label: "+5 inboxes" },
+    { inboxes: 10, price: 120, annualPrice: 100, label: "+10 inboxes" },
+    { inboxes: 25, price: 300, annualPrice: 250, label: "+25 inboxes" }
+  ]
 
   const plans = [
     {
       id: 'solo',
       name: "Solo",
-      description: "Perfect for individual recruiters getting started with AI",
+      description: "Perfect for individual recruiters",
       monthlyPrice: 199,
       annualPrice: 149,
       isPerSeat: true,
@@ -28,21 +49,23 @@ export default function SignupPage() {
       maxSeats: 4,
       seats: soloSeats,
       setSeats: setSoloSeats,
+      credits: soloCredits,
+      setCredits: setSoloCredits,
+      inboxes: soloInboxes,
+      setInboxes: setSoloInboxes,
       features: [
         "Up to 5 recruiters",
         "500 enrichment credits per recruiter/month",
         "5 premium inboxes per recruiter",
         "Basic email sequences",
-        "Standard support",
-        "Basic analytics",
-        "AI personalization"
+        "Standard support"
       ],
       popular: false
     },
     {
       id: 'agency',
       name: "Agency",
-      description: "Most popular for growing recruiting agencies",
+      description: "Most popular for growing agencies",
       monthlyPrice: 750,
       annualPrice: 650,
       isPerSeat: false,
@@ -50,24 +73,23 @@ export default function SignupPage() {
       maxSeats: 25,
       seats: agencySeats,
       setSeats: setAgencySeats,
+      credits: agencyCredits,
+      setCredits: setAgencyCredits,
+      inboxes: agencyInboxes,
+      setInboxes: setAgencyInboxes,
       features: [
         "Up to 25 recruiters",
-        "3,000 enrichment credits/month (team total)",
-        "50 premium inboxes (team total)",
+        "3,000 enrichment credits/month",
+        "50 premium inboxes",
         "Advanced AI sequences",
-        "Priority support",
-        "Advanced analytics",
-        "Full AI personalization",
-        "Custom templates",
-        "A/B testing",
-        "Team collaboration tools"
+        "Priority support"
       ],
       popular: true
     },
     {
       id: 'enterprise',
       name: "Enterprise",
-      description: "For large agencies with custom requirements",
+      description: "For large agencies",
       monthlyPrice: null,
       annualPrice: null,
       isPerSeat: false,
@@ -75,17 +97,16 @@ export default function SignupPage() {
       maxSeats: 500,
       seats: enterpriseSeats,
       setSeats: setEnterpriseSeats,
+      credits: enterpriseCredits,
+      setCredits: setEnterpriseCredits,
+      inboxes: enterpriseInboxes,
+      setInboxes: setEnterpriseInboxes,
       features: [
         "Unlimited recruiters",
         "Custom enrichment credits",
         "Custom premium inboxes",
         "Custom AI training",
-        "Dedicated support",
-        "Custom analytics",
-        "White-label options",
-        "Custom integrations",
-        "Advanced security",
-        "SLA guarantee"
+        "Dedicated support"
       ],
       popular: false
     }
@@ -94,91 +115,75 @@ export default function SignupPage() {
   const calculatePrice = (plan: typeof plans[0]) => {
     if (plan.monthlyPrice === null) return null
     
+    let basePrice = 0
     if (plan.isPerSeat) {
-      return (isAnnual ? plan.annualPrice : plan.monthlyPrice) * plan.seats[0]
+      basePrice = (isAnnual ? plan.annualPrice : plan.monthlyPrice) * plan.seats[0]
     } else {
-      return isAnnual ? plan.annualPrice : plan.monthlyPrice
+      basePrice = isAnnual ? plan.annualPrice : plan.monthlyPrice
     }
-  }
 
-  const calculateSavings = (plan: typeof plans[0]) => {
-    if (plan.monthlyPrice === null) return 0
+    // Add add-on costs
+    const creditCost = isAnnual 
+      ? creditPackages[plan.credits[0]]?.annualPrice || 0
+      : creditPackages[plan.credits[0]]?.price || 0
+    const inboxCost = isAnnual
+      ? inboxPackages[plan.inboxes[0]]?.annualPrice || 0
+      : inboxPackages[plan.inboxes[0]]?.price || 0
     
-    if (plan.isPerSeat) {
-      const seats = plan.seats[0]
-      const monthlyTotal = plan.monthlyPrice * seats * 12
-      const annualTotal = plan.annualPrice * seats * 12
-      return monthlyTotal - annualTotal
-    } else {
-      const monthlyTotal = plan.monthlyPrice * 12
-      const annualTotal = plan.annualPrice * 12
-      return monthlyTotal - annualTotal
-    }
+    return basePrice + creditCost + inboxCost
   }
 
-  const handlePlanSelect = (planId: string) => {
-    setSelectedPlan(planId)
-  }
-
-  const handleProceedToPayment = () => {
+  const generateCalendlyUrl = () => {
     const plan = plans.find(p => p.id === selectedPlan)
-    if (!plan) return
+    if (!plan) return 'https://calendly.com/quintonai/30min'
 
-    // Prepare tracking data
-    const trackingData = {
-      plan: plan.name,
-      planId: plan.id,
-      seats: plan.seats[0],
-      billing: isAnnual ? 'annual' : 'monthly',
-      totalPrice: calculatePrice(plan) || 0,
-      timestamp: new Date().toISOString()
-    }
-
-    // Optional: Send to analytics (uncomment and configure as needed)
-    // if (typeof gtag !== 'undefined') {
-    //   gtag('event', 'plan_selected', {
-    //     plan_name: trackingData.plan,
-    //     plan_id: trackingData.planId,
-    //     seats: trackingData.seats,
-    //     billing_cycle: trackingData.billing,
-    //     value: trackingData.totalPrice
-    //   })
-    // }
-
-    // Optional: Send to your own analytics endpoint
-    fetch('/api/track-plan-selection', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(trackingData)
-    }).catch(console.error)
-
-    // Create Calendly URL with plan information as custom questions
-    const calendlyUrl = new URL('https://calendly.com/quintonai/30min')
+    const baseUrl = "https://calendly.com/quintonai/30min"
+    const params = new URLSearchParams()
     
-    // Use Calendly's custom question parameters
-    calendlyUrl.searchParams.set('a1', plan.name) // Custom question 1: Plan
-    calendlyUrl.searchParams.set('a2', plan.seats[0].toString()) // Custom question 2: Seats
-    calendlyUrl.searchParams.set('a3', isAnnual ? 'Annual' : 'Monthly') // Custom question 3: Billing
-    if (plan.monthlyPrice !== null) {
-      const price = calculatePrice(plan)
-      if (price !== null) {
-        calendlyUrl.searchParams.set('a4', `$${price}/month`) // Custom question 4: Price
-      }
+    params.append("a1", plan.name)
+    params.append("a2", plan.seats[0].toString())
+    params.append("a3", isAnnual ? "Annual" : "Monthly")
+    
+    const totalPrice = calculatePrice(plan)
+    if (totalPrice !== null) {
+      params.append("a4", `$${totalPrice}/month`)
+    } else {
+      params.append("a4", "Custom pricing - contact sales")
     }
     
-    // Also add as regular parameters for backup
-    calendlyUrl.searchParams.set('plan', plan.name)
-    calendlyUrl.searchParams.set('seats', plan.seats[0].toString())
-    calendlyUrl.searchParams.set('billing', isAnnual ? 'annual' : 'monthly')
-
-    // Redirect to Calendly with tracking parameters
-    window.location.href = calendlyUrl.toString()
+    const selectedCredits = creditPackages[plan.credits[0]]
+    if (selectedCredits && selectedCredits.credits > 0) {
+      params.append("a5", `${selectedCredits.credits.toLocaleString()} additional credits`)
+    } else {
+      params.append("a5", "None")
+    }
+    
+    const selectedInboxes = inboxPackages[plan.inboxes[0]]
+    if (selectedInboxes && selectedInboxes.inboxes > 0) {
+      params.append("a6", `${selectedInboxes.inboxes} additional inboxes`)
+    } else {
+      params.append("a6", "None")
+    }
+    
+    return `${baseUrl}?${params.toString()}`
   }
+
+  // Update Calendly when plan changes
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://assets.calendly.com/assets/external/widget.js'
+    script.async = true
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-12">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-8">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex items-center mb-6">
             <Link href="/" className="flex items-center text-blue-600 hover:text-blue-700 mr-4">
@@ -188,258 +193,252 @@ export default function SignupPage() {
           </div>
           
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Choose Your Plan
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Get Started with Quinton AI
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Select the perfect plan for your recruiting agency and start transforming your operations with AI.
+            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              Choose your plan and schedule your onboarding call to start transforming your recruiting operations.
             </p>
-
-            {/* Billing Toggle */}
-            <div className="flex items-center justify-center mb-8">
-              <span className={`mr-3 ${!isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                Monthly
-              </span>
-              <Switch
-                checked={isAnnual}
-                onCheckedChange={setIsAnnual}
-                className="mx-2"
-              />
-              <span className={`ml-3 ${isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                Annual
-              </span>
-              {isAnnual && (
-                <Badge className="ml-3 bg-green-100 text-green-800">
-                  Save 20%
-                </Badge>
-              )}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-16">
+      {/* Main Content - Two Column Layout */}
+      <section className="py-12">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {plans.map((plan) => {
-              const totalPrice = calculatePrice(plan)
-              const isSelected = selectedPlan === plan.id
-              
-              return (
-                <Card 
-                  key={plan.id} 
-                  className={`relative cursor-pointer transition-all ${
-                    isSelected 
-                      ? 'border-blue-500 shadow-lg ring-2 ring-blue-200' 
-                      : plan.popular 
-                        ? 'border-blue-500 shadow-lg scale-105' 
-                        : 'border-gray-200 hover:border-blue-300 hover:shadow-md'
-                  }`}
-                  onClick={() => handlePlanSelect(plan.id)}
-                >
-                  {plan.popular && (
-                    <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white">
-                      Most Popular
+          <div className="grid lg:grid-cols-2 gap-12">
+            
+            {/* Left Column - Plan Selection */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  1. Select Your Plan
+                </h2>
+                
+                {/* Billing Toggle */}
+                <div className="flex items-center mb-6">
+                  <span className={`mr-3 text-sm ${!isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                    Monthly
+                  </span>
+                  <Switch
+                    checked={isAnnual}
+                    onCheckedChange={setIsAnnual}
+                    className="mx-2"
+                  />
+                  <span className={`ml-3 text-sm ${isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                    Annual
+                  </span>
+                  {isAnnual && (
+                    <Badge className="ml-3 bg-green-100 text-green-800 text-xs">
+                      Save 20%
                     </Badge>
                   )}
-                  {isSelected && (
-                    <Badge className="absolute -top-3 right-4 bg-green-600 text-white">
-                      Selected
-                    </Badge>
-                  )}
-                  
-                  <CardHeader className="text-center">
-                    <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                    <CardDescription className="text-gray-600">
-                      {plan.description}
-                    </CardDescription>
-                    <div className="mt-6">
-                      {plan.monthlyPrice === null ? (
-                        <div className="text-4xl font-bold text-gray-900">
-                          Custom
-                        </div>
-                      ) : (
-                        <>
-                          <div className="text-4xl font-bold text-gray-900">
-                            ${totalPrice}
-                            <span className="text-lg font-normal text-gray-500">
-                              /month
-                            </span>
-                          </div>
-                          {plan.isPerSeat && (
-                            <div className="text-sm text-gray-500">
-                              ${isAnnual ? plan.annualPrice : plan.monthlyPrice} per recruiter
-                            </div>
-                          )}
-                          {isAnnual && plan.monthlyPrice !== null && (
-                            <div className="text-sm text-green-600 font-medium mt-1">
-                              Save ${calculateSavings(plan)} annually
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    {/* Recruiter Slider */}
-                    <div className="mb-6">
-                      <div className="mb-3">
-                        <label className="text-sm font-medium text-gray-700">
-                          Number of recruiters: {plan.seats[0]}
-                        </label>
-                      </div>
-                      <Slider
-                        value={plan.seats}
-                        onValueChange={plan.setSeats}
-                        max={plan.maxSeats}
-                        min={plan.minSeats}
-                        step={1}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-xs text-gray-500 mt-2">
-                        <span>{plan.minSeats}</span>
-                        <span>{plan.maxSeats}{plan.name === 'Enterprise' ? '+' : ''}</span>
-                      </div>
-                    </div>
-                    
-                    <ul className="space-y-3">
-                      {plan.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-start">
-                          <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
+                </div>
 
-          {/* Selected Plan Summary & Checkout */}
-          {selectedPlan && (
-            <div className="max-w-2xl mx-auto">
-              <Card className="border-blue-200 bg-blue-50">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-blue-900">
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    Ready to Get Started?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {(() => {
-                    const plan = plans.find(p => p.id === selectedPlan)
-                    if (!plan) return null
+                {/* Plan Cards - Compact Version */}
+                <div className="space-y-4">
+                  {plans.map((plan) => {
+                    const totalPrice = calculatePrice(plan)
+                    const isSelected = selectedPlan === plan.id
                     
                     return (
-                      <div className="space-y-4">
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium text-gray-900">Selected Plan:</span>
-                          <span className="text-blue-600 font-semibold">{plan.name}</span>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium text-gray-900">Recruiters:</span>
-                          <span className="text-gray-700">{plan.seats[0]}</span>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium text-gray-900">Billing:</span>
-                          <span className="text-gray-700">{isAnnual ? 'Annual' : 'Monthly'}</span>
-                        </div>
-                        
-                        {plan.monthlyPrice !== null && (
-                          <div className="flex justify-between items-center text-lg font-bold border-t pt-4">
-                            <span className="text-gray-900">Total:</span>
-                            <span className="text-blue-600">${calculatePrice(plan)}/month</span>
+                      <Card 
+                        key={plan.id} 
+                        className={`cursor-pointer transition-all ${
+                          isSelected 
+                            ? 'border-blue-500 shadow-md ring-2 ring-blue-200' 
+                            : 'border-gray-200 hover:border-blue-300'
+                        }`}
+                        onClick={() => setSelectedPlan(plan.id)}
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <div className={`w-4 h-4 rounded-full border-2 mr-3 ${
+                                isSelected ? 'bg-blue-600 border-blue-600' : 'border-gray-300'
+                              }`}>
+                                {isSelected && <div className="w-2 h-2 bg-white rounded-full mx-auto mt-0.5"></div>}
+                              </div>
+                              <div>
+                                <h3 className="font-semibold text-gray-900 flex items-center">
+                                  {plan.name}
+                                  {plan.popular && (
+                                    <Badge className="ml-2 bg-blue-600 text-white text-xs">
+                                      Popular
+                                    </Badge>
+                                  )}
+                                </h3>
+                                <p className="text-sm text-gray-600">{plan.description}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              {plan.monthlyPrice === null ? (
+                                <div className="text-lg font-bold text-gray-900">Custom</div>
+                              ) : (
+                                <div className="text-lg font-bold text-gray-900">
+                                  ${totalPrice}/mo
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        )}
-                        
-                        <Button 
-                          onClick={handleProceedToPayment}
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-6"
-                          size="lg"
-                        >
-                          {plan.id === 'enterprise' ? 'Contact Sales' : 'Proceed to Onboarding'}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </div>
+                          
+                          {isSelected && (
+                            <div className="space-y-4 pt-4 border-t">
+                              {/* Recruiter Slider */}
+                              <div>
+                                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                                  Number of recruiters: {plan.seats[0]}
+                                </label>
+                                <Slider
+                                  value={plan.seats}
+                                  onValueChange={plan.setSeats}
+                                  max={plan.maxSeats}
+                                  min={plan.minSeats}
+                                  step={1}
+                                  className="w-full"
+                                />
+                                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                  <span>{plan.minSeats}</span>
+                                  <span>{plan.maxSeats}{plan.name === 'Enterprise' ? '+' : ''}</span>
+                                </div>
+                              </div>
+
+                              {/* Add-ons */}
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <label className="text-xs font-medium text-gray-700 mb-1 block">
+                                    Additional Credits
+                                  </label>
+                                  <select 
+                                    className="w-full p-2 text-xs border border-gray-300 rounded bg-white"
+                                    value={plan.credits[0]}
+                                    onChange={(e) => plan.setCredits([parseInt(e.target.value)])}
+                                  >
+                                    {creditPackages.map((pkg, index) => (
+                                      <option key={index} value={index}>
+                                        {pkg.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                                
+                                <div>
+                                  <label className="text-xs font-medium text-gray-700 mb-1 block">
+                                    Additional Inboxes
+                                  </label>
+                                  <select 
+                                    className="w-full p-2 text-xs border border-gray-300 rounded bg-white"
+                                    value={plan.inboxes[0]}
+                                    onChange={(e) => plan.setInboxes([parseInt(e.target.value)])}
+                                  >
+                                    {inboxPackages.map((pkg, index) => (
+                                      <option key={index} value={index}>
+                                        {pkg.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+
+                              {/* Features */}
+                              <div>
+                                <h4 className="text-sm font-medium text-gray-900 mb-2">What's included:</h4>
+                                <ul className="space-y-1">
+                                  {plan.features.slice(0, 3).map((feature, index) => (
+                                    <li key={index} className="flex items-center text-xs text-gray-600">
+                                      <Check className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
+                                      {feature}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
                     )
-                  })()}
-                </CardContent>
-              </Card>
-            </div>
-          )}
-        </div>
-      </section>
+                  })}
+                </div>
+              </div>
 
-      {/* Trust Indicators */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Trusted by 100+ Recruiting Agencies
-            </h2>
-            <p className="text-gray-600">
-              Join agencies already transforming their operations with Quinton AI
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Secure & Reliable</h3>
-              <p className="text-gray-600 text-sm">Bank-level encryption and secure data handling</p>
+              {/* Selected Plan Summary */}
+              {selectedPlan && (
+                <Card className="border-blue-200 bg-blue-50">
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-blue-900 mb-3">Your Selection Summary</h3>
+                    {(() => {
+                      const plan = plans.find(p => p.id === selectedPlan)
+                      if (!plan) return null
+                      
+                      return (
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Plan:</span>
+                            <span className="font-medium text-blue-600">{plan.name}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Recruiters:</span>
+                            <span className="text-gray-900">{plan.seats[0]}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Billing:</span>
+                            <span className="text-gray-900">{isAnnual ? 'Annual' : 'Monthly'}</span>
+                          </div>
+                          {plan.monthlyPrice !== null && (
+                            <div className="flex justify-between font-bold text-base border-t pt-2">
+                              <span className="text-gray-900">Total:</span>
+                              <span className="text-blue-600">${calculatePrice(plan)}/month</span>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })()}
+                  </CardContent>
+                </Card>
+              )}
             </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Users className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Expert Support</h3>
-              <p className="text-gray-600 text-sm">Dedicated onboarding and ongoing assistance</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Quick Setup</h3>
-              <p className="text-gray-600 text-sm">Get started in under 30 minutes</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* FAQ */}
-      <section className="py-16">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Questions? We're Here to Help
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Can I change plans later?</h3>
-              <p className="text-gray-600 text-sm">Yes, you can upgrade or downgrade your plan at any time. Changes take effect on your next billing cycle.</p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">What payment methods do you accept?</h3>
-              <p className="text-gray-600 text-sm">We accept all major credit cards, ACH transfers, and can accommodate wire transfers for enterprise customers.</p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Need help choosing?</h3>
-              <p className="text-gray-600 text-sm">
-                <Link href="/contact" className="text-blue-600 hover:text-blue-700">Contact our sales team</Link> for personalized recommendations based on your agency's needs.
-              </p>
+            {/* Right Column - Calendly Embed */}
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  2. Schedule Your Onboarding Call
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Book a 30-minute call with our team to get your account set up and start using Quinton AI.
+                </p>
+              </div>
+
+              {/* Calendly Embed */}
+              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div 
+                  className="calendly-inline-widget" 
+                  data-url={generateCalendlyUrl()}
+                  style={{ minWidth: '320px', height: '700px' }}
+                ></div>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="grid grid-cols-3 gap-4 pt-6">
+                <div className="text-center">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Shield className="w-5 h-5 text-green-600" />
+                  </div>
+                  <p className="text-xs text-gray-600">Secure Setup</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Users className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <p className="text-xs text-gray-600">Expert Support</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Zap className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <p className="text-xs text-gray-600">Quick Start</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
