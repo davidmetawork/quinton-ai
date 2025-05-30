@@ -9,6 +9,13 @@ import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
 import { Check, ArrowLeft, Calendar, Users, Zap, Shield } from 'lucide-react'
 
+// Declare Calendly global type
+declare global {
+  interface Window {
+    Calendly: any;
+  }
+}
+
 export default function SignupPage() {
   const [isAnnual, setIsAnnual] = useState(true)
   const [selectedPlan, setSelectedPlan] = useState<string | null>('solo')
@@ -21,6 +28,7 @@ export default function SignupPage() {
   const [agencyInboxes, setAgencyInboxes] = useState([0])
   const [enterpriseCredits, setEnterpriseCredits] = useState([0])
   const [enterpriseInboxes, setEnterpriseInboxes] = useState([0])
+  const [calendlyLoaded, setCalendlyLoaded] = useState(false)
 
   const creditPackages = [
     { credits: 0, price: 0, annualPrice: 0, label: "No additional credits" },
@@ -140,45 +148,72 @@ export default function SignupPage() {
     const baseUrl = "https://calendly.com/quintonai/30min"
     const params = new URLSearchParams()
     
-    params.append("a1", plan.name)
-    params.append("a2", plan.seats[0].toString())
-    params.append("a3", isAnnual ? "Annual" : "Monthly")
+    // Use Calendly's prefill parameters
+    params.append("name", "")
+    params.append("email", "")
+    params.append("a1", `Plan: ${plan.name}`)
+    params.append("a2", `Recruiters: ${plan.seats[0]}`)
+    params.append("a3", `Billing: ${isAnnual ? "Annual" : "Monthly"}`)
     
     const totalPrice = calculatePrice(plan)
     if (totalPrice !== null) {
-      params.append("a4", `$${totalPrice}/month`)
+      params.append("a4", `Total: $${totalPrice}/month`)
     } else {
       params.append("a4", "Custom pricing - contact sales")
     }
     
     const selectedCredits = creditPackages[plan.credits[0]]
     if (selectedCredits && selectedCredits.credits > 0) {
-      params.append("a5", `${selectedCredits.credits.toLocaleString()} additional credits`)
+      params.append("a5", `Add-on Credits: ${selectedCredits.credits.toLocaleString()}`)
     } else {
-      params.append("a5", "None")
+      params.append("a5", "Add-on Credits: None")
     }
     
     const selectedInboxes = inboxPackages[plan.inboxes[0]]
     if (selectedInboxes && selectedInboxes.inboxes > 0) {
-      params.append("a6", `${selectedInboxes.inboxes} additional inboxes`)
+      params.append("a6", `Add-on Inboxes: ${selectedInboxes.inboxes}`)
     } else {
-      params.append("a6", "None")
+      params.append("a6", "Add-on Inboxes: None")
     }
     
     return `${baseUrl}?${params.toString()}`
   }
 
-  // Update Calendly when plan changes
+  // Load Calendly script and initialize widget
   useEffect(() => {
     const script = document.createElement('script')
     script.src = 'https://assets.calendly.com/assets/external/widget.js'
     script.async = true
+    script.onload = () => {
+      setCalendlyLoaded(true)
+    }
     document.body.appendChild(script)
 
     return () => {
-      document.body.removeChild(script)
+      if (document.body.contains(script)) {
+        document.body.removeChild(script)
+      }
     }
   }, [])
+
+  // Update Calendly widget when plan details change
+  useEffect(() => {
+    if (calendlyLoaded && window.Calendly && selectedPlan) {
+      const calendlyContainer = document.querySelector('.calendly-inline-widget')
+      if (calendlyContainer) {
+        // Clear existing widget
+        calendlyContainer.innerHTML = ''
+        
+        // Initialize new widget with updated URL
+        window.Calendly.initInlineWidget({
+          url: generateCalendlyUrl(),
+          parentElement: calendlyContainer,
+          prefill: {},
+          utm: {}
+        })
+      }
+    }
+  }, [calendlyLoaded, selectedPlan, isAnnual, soloSeats, agencySeats, enterpriseSeats, soloCredits, soloInboxes, agencyCredits, agencyInboxes, enterpriseCredits, enterpriseInboxes])
 
   return (
     <div className="min-h-screen bg-white">
@@ -411,11 +446,19 @@ export default function SignupPage() {
 
               {/* Calendly Embed */}
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                <div 
-                  className="calendly-inline-widget" 
-                  data-url={generateCalendlyUrl()}
-                  style={{ minWidth: '320px', height: '700px' }}
-                ></div>
+                {!calendlyLoaded ? (
+                  <div className="flex items-center justify-center h-[700px] text-gray-500">
+                    <div className="text-center">
+                      <Calendar className="w-8 h-8 mx-auto mb-2 animate-pulse" />
+                      <p>Loading calendar...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div 
+                    className="calendly-inline-widget" 
+                    style={{ minWidth: '320px', height: '700px' }}
+                  ></div>
+                )}
               </div>
 
               {/* Trust Indicators */}
