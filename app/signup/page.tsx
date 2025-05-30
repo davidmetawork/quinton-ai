@@ -11,7 +11,7 @@ import { Check, ArrowRight, ArrowLeft, CreditCard, Shield, Users, Zap } from 'lu
 
 export default function SignupPage() {
   const [isAnnual, setIsAnnual] = useState(true)
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  const [selectedPlan, setSelectedPlan] = useState<string | null>('solo')
   const [soloSeats, setSoloSeats] = useState([1])
   const [agencySeats, setAgencySeats] = useState([5])
   const [enterpriseSeats, setEnterpriseSeats] = useState([26])
