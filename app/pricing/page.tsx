@@ -238,27 +238,35 @@ export default function PricingPage() {
     const params = new URLSearchParams()
     
     // Add plan information
-    params.append("a1", plan.name) // Plan name
-    params.append("a2", plan.seats[0].toString()) // Number of seats
+    params.append("a1", plan.name) // Plan name - working correctly
+    params.append("a2", plan.seats[0].toString()) // Number of seats - working correctly
     
-    // Add credits information
+    // Add billing preference (Annual/Monthly)
+    params.append("a3", isAnnual ? "Annual" : "Monthly")
+    
+    // Add expected price
+    const totalPrice = calculatePrice(plan)
+    if (totalPrice !== null) {
+      params.append("a4", `$${totalPrice}/month`)
+    } else {
+      params.append("a4", "Custom pricing - contact sales")
+    }
+    
+    // Add credits information (Enrichment Credit Add-Ons)
     const selectedCredits = creditPackages[plan.credits[0]]
     if (selectedCredits && selectedCredits.credits > 0) {
-      params.append("a3", `${selectedCredits.credits.toLocaleString()} additional credits`)
+      params.append("a5", `${selectedCredits.credits.toLocaleString()} additional credits`)
     } else {
-      params.append("a3", "None")
+      params.append("a5", "None")
     }
     
-    // Add inboxes information
+    // Add inboxes information (Premium Inbox Add-Ons)
     const selectedInboxes = inboxPackages[plan.inboxes[0]]
     if (selectedInboxes && selectedInboxes.inboxes > 0) {
-      params.append("a4", `${selectedInboxes.inboxes} additional inboxes`)
+      params.append("a6", `${selectedInboxes.inboxes} additional inboxes`)
     } else {
-      params.append("a4", "None")
+      params.append("a6", "None")
     }
-    
-    // Add billing preference
-    params.append("a5", isAnnual ? "Annual" : "Monthly")
     
     return `${baseUrl}?${params.toString()}`
   }
