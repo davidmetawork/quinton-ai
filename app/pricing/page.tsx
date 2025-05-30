@@ -33,6 +33,8 @@ export default function PricingPage() {
   // Add-on billing toggles for standalone section
   const [standaloneCreditsAnnual, setStandaloneCreditsAnnual] = useState(true)
   const [standaloneInboxesAnnual, setStandaloneInboxesAnnual] = useState(true)
+  const [selectedCreditsPackage, setSelectedCreditsPackage] = useState(1)
+  const [selectedInboxesPackage, setSelectedInboxesPackage] = useState(1)
 
   const creditPackages = [
     { credits: 0, price: 0, annualPrice: 0, label: "No additional credits" },
@@ -266,6 +268,35 @@ export default function PricingPage() {
       params.append("a6", `${selectedInboxes.inboxes} additional inboxes`)
     } else {
       params.append("a6", "None")
+    }
+    
+    return `${baseUrl}?${params.toString()}`
+  }
+
+  const generateAddOnCalendlyUrl = (type: 'credits' | 'inboxes', selectedValue: number) => {
+    const baseUrl = "https://calendly.com/quintonai/add-ons"
+    const params = new URLSearchParams()
+    
+    if (type === 'credits') {
+      // Add credits information
+      const selectedCredits = creditPackages[selectedValue]
+      if (selectedCredits && selectedCredits.credits > 0) {
+        params.append("a1", `${selectedCredits.credits.toLocaleString()} credits`)
+      } else {
+        params.append("a1", "None")
+      }
+      // Set inboxes to None since this is credits-only
+      params.append("a2", "None")
+    } else {
+      // Set credits to None since this is inboxes-only
+      params.append("a1", "None")
+      // Add inboxes information
+      const selectedInboxes = inboxPackages[selectedValue]
+      if (selectedInboxes && selectedInboxes.inboxes > 0) {
+        params.append("a2", `${selectedInboxes.inboxes} inboxes`)
+      } else {
+        params.append("a2", "None")
+      }
     }
     
     return `${baseUrl}?${params.toString()}`
@@ -555,7 +586,8 @@ export default function PricingPage() {
                   </label>
                   <select 
                     className="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    defaultValue={1}
+                    value={selectedCreditsPackage}
+                    onChange={(e) => setSelectedCreditsPackage(parseInt(e.target.value))}
                   >
                     {creditPackages.slice(1).map((pkg, index) => (
                       <option key={index} value={index + 1}>
@@ -565,7 +597,7 @@ export default function PricingPage() {
                   </select>
                 </div>
                 <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
-                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                  <a href={generateAddOnCalendlyUrl('credits', selectedCreditsPackage)} target="_blank" rel="noopener noreferrer">
                     Purchase Credits
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
@@ -608,7 +640,8 @@ export default function PricingPage() {
                   </label>
                   <select 
                     className="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    defaultValue={1}
+                    value={selectedInboxesPackage}
+                    onChange={(e) => setSelectedInboxesPackage(parseInt(e.target.value))}
                   >
                     {inboxPackages.slice(1).map((pkg, index) => (
                       <option key={index} value={index + 1}>
@@ -618,7 +651,7 @@ export default function PricingPage() {
                   </select>
                 </div>
                 <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
-                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                  <a href={generateAddOnCalendlyUrl('inboxes', selectedInboxesPackage)} target="_blank" rel="noopener noreferrer">
                     Purchase Inboxes
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
