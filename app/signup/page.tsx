@@ -431,6 +431,70 @@ export default function SignupPage() {
                   </CardContent>
                 </Card>
               )}
+
+              {/* What Happens Next */}
+              <Card className="border-gray-200">
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <Calendar className="w-4 h-4 mr-2 text-blue-600" />
+                    What Happens Next?
+                  </h3>
+                  <div className="space-y-3 text-sm text-gray-600">
+                    <div className="flex items-start">
+                      <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                        <span className="text-xs font-bold text-blue-600">1</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Schedule Your Call</p>
+                        <p className="text-xs">Pick a time that works for you →</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                        <span className="text-xs font-bold text-blue-600">2</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Account Setup</p>
+                        <p className="text-xs">We'll configure your workspace and integrations</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                        <span className="text-xs font-bold text-blue-600">3</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Start Recruiting</p>
+                        <p className="text-xs">Begin using AI-powered recruiting tools immediately</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Quick Stats */}
+              <Card className="border-gray-200 bg-gradient-to-br from-gray-50 to-blue-50">
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-gray-900 mb-3">Why Quinton AI?</h3>
+                  <div className="grid grid-cols-2 gap-3 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-blue-600">5x</div>
+                      <div className="text-xs text-gray-600">Faster Sourcing</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">90%</div>
+                      <div className="text-xs text-gray-600">Time Saved</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-purple-600">24/7</div>
+                      <div className="text-xs text-gray-600">AI Assistant</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-orange-600">∞</div>
+                      <div className="text-xs text-gray-600">Possibilities</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Right Column - Calendly Embed */}
