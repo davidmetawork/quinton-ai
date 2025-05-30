@@ -362,7 +362,7 @@ export default function SignupPage() {
                           className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-6"
                           size="lg"
                         >
-                          {plan.id === 'enterprise' ? 'Contact Sales' : 'Proceed to Payment'}
+                          {plan.id === 'enterprise' ? 'Contact Sales' : 'Proceed to Onboarding'}
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                       </div>
