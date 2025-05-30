@@ -233,6 +233,36 @@ export default function PricingPage() {
     return creditCost + inboxCost
   }
 
+  const generateCalendlyUrl = (plan: typeof plans[0]) => {
+    const baseUrl = "https://calendly.com/quintonai/30min"
+    const params = new URLSearchParams()
+    
+    // Add plan information
+    params.append("a1", plan.name) // Plan name
+    params.append("a2", plan.seats[0].toString()) // Number of seats
+    
+    // Add credits information
+    const selectedCredits = creditPackages[plan.credits[0]]
+    if (selectedCredits && selectedCredits.credits > 0) {
+      params.append("a3", `${selectedCredits.credits.toLocaleString()} additional credits`)
+    } else {
+      params.append("a3", "None")
+    }
+    
+    // Add inboxes information
+    const selectedInboxes = inboxPackages[plan.inboxes[0]]
+    if (selectedInboxes && selectedInboxes.inboxes > 0) {
+      params.append("a4", `${selectedInboxes.inboxes} additional inboxes`)
+    } else {
+      params.append("a4", "None")
+    }
+    
+    // Add billing preference
+    params.append("a5", isAnnual ? "Annual" : "Monthly")
+    
+    return `${baseUrl}?${params.toString()}`
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -358,7 +388,7 @@ export default function PricingPage() {
                         variant={plan.popular ? 'default' : 'outline'}
                         asChild
                       >
-                        <Link href="/signup">
+                        <Link href={generateCalendlyUrl(plan)}>
                           {plan.cta}
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
@@ -367,9 +397,12 @@ export default function PricingPage() {
                       <Button 
                         className={`w-full mb-6 ${plan.popular ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
                         variant={plan.popular ? 'default' : 'outline'}
+                        asChild
                       >
-                        {plan.cta}
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <Link href={generateCalendlyUrl(plan)}>
+                          {plan.cta}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
                       </Button>
                     )}
                     
@@ -523,9 +556,11 @@ export default function PricingPage() {
                     ))}
                   </select>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                  Purchase Credits
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
+                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                    Purchase Credits
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -574,9 +609,11 @@ export default function PricingPage() {
                     ))}
                   </select>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                  Purchase Inboxes
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
+                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                    Purchase Inboxes
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -592,11 +629,15 @@ export default function PricingPage() {
                 Log into your account to add these to your current plan, or contact support for assistance with your add-on purchases.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
-                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-100">
-                  Login to Account
+                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-100" asChild>
+                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                    Login to Account
+                  </a>
                 </Button>
-                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-100">
-                  Contact Support
+                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-100" asChild>
+                  <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                    Contact Support
+                  </a>
                 </Button>
               </div>
             </div>
@@ -641,9 +682,9 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700" asChild>
-              <Link href="/signup">
+              <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
                 Sign Up
-              </Link>
+              </a>
             </Button>
             <Button variant="outline" size="lg" className="border-white text-gray-900 hover:bg-white hover:text-gray-900" asChild>
               <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
@@ -655,4 +696,4 @@ export default function PricingPage() {
       </section>
     </div>
   )
-} 
+}
