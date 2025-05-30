@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Test - Quinton AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Quinton AI JavaScript Functionality Test</h1>
+        
+        <div id="status" class="status">Testing JavaScript functionality...</div>
+        
+        <h2>Test Buttons</h2>
+        <button class="test-button cta-button" onclick="testButtonClick('CTA Button')">Test CTA Button</button>
+        <button class="test-button hero-cta" onclick="testButtonClick('Hero CTA')">Test Hero CTA</button>
+        <button class="test-button worker-cta" onclick="testButtonClick('Worker CTA')">Test Worker CTA</button>
+        
+        <h2>Mobile Menu Test</h2>
+        <button class="test-button mobile-menu-toggle">
+            <i class="fas fa-bars"></i> Mobile Menu Toggle
+        </button>
+        <nav class="nav" style="display: none; background: #f0f0f0; padding: 10px; margin: 10px 0;">
+            <a href="#test" class="nav-link">Test Link 1</a>
+            <a href="#test2" class="nav-link">Test Link 2</a>
+        </nav>
+        
+        <h2>Audio Player Test</h2>
+        <div class="audio-player" style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f0f0f0;">
+            <button class="play-button test-button">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="audio-waveform" style="display: flex; gap: 2px;">
+                <div class="wave-bar" style="width: 4px; height: 20px; background: #007bff; animation: wave 1s infinite;"></div>
+                <div class="wave-bar" style="width: 4px; height: 30px; background: #007bff; animation: wave 1s infinite 0.1s;"></div>
+                <div class="wave-bar" style="width: 4px; height: 25px; background: #007bff; animation: wave 1s infinite 0.2s;"></div>
+            </div>
+        </div>
+        
+        <h2>Console Log</h2>
+        <div id="log" class="log">Waiting for JavaScript to load...</div>
+        
+        <h2>Manual Tests</h2>
+        <button class="test-button" onclick="runManualTests()">Run All Tests</button>
+        <button class="test-button" onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script>
+        // Override console.log to display in our log div
+        const originalLog = console.log;
+        const logDiv = document.getElementById('log');
+        const statusDiv = document.getElementById('status');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.join(' ');
+            logDiv.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        };
+        
+        // Test if JavaScript is working
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page DOM loaded successfully');
+            statusDiv.textContent = 'JavaScript is working!';
+            statusDiv.className = 'status success';
+            
+            // Test if our main script loads
+            if (typeof initScrollAnimations === 'function') {
+                console.log('Main script.js loaded successfully');
+                statusDiv.textContent += ' Main script loaded!';
+            } else {
+                console.log('Main script.js NOT loaded');
+                statusDiv.textContent = 'Main script.js not loaded!';
+                statusDiv.className = 'status error';
+            }
+        });
+        
+        function testButtonClick(buttonType) {
+            console.log('Button clicked: ' + buttonType);
+            alert('Button clicked: ' + buttonType);
+        }
+        
+        function runManualTests() {
+            console.log('Running manual tests...');
+            
+            // Test 1: Check if elements exist
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+            const playButton = document.querySelector('.play-button');
+            
+            console.log('Mobile toggle found:', !!mobileToggle);
+            console.log('Nav found:', !!nav);
+            console.log('Play button found:', !!playButton);
+            
+            // Test 2: Try to trigger mobile menu
+            if (mobileToggle && nav) {
+                console.log('Testing mobile menu toggle...');
+                mobileToggle.click();
+                setTimeout(() => {
+                    console.log('Nav classes after click:', nav.className);
+                }, 100);
+            }
+            
+            // Test 3: Check for main script functions
+            const functions = ['initScrollAnimations', 'initMobileMenu', 'initAudioPlayer'];
+            functions.forEach(func => {
+                console.log(func + ' exists:', typeof window[func] === 'function');
+            });
+        }
+        
+        function clearLog() {
+            logDiv.textContent = '';
+        }
+        
+        // Add click listener to test general clicking
+        document.addEventListener('click', function(e) {
+            console.log('Click detected on:', e.target.tagName, e.target.className);
+        });
+    </script>
+    
+    <!-- Load our main script -->
+    <script src="script.js"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(2); }
+        }
+    </style>
+</body>
+</html> 

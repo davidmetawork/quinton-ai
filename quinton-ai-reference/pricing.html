@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Quinton AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/pricing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <span class="logo-icon">✨</span>
+                    <span class="logo-text">Quinton</span>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="company.html" class="nav-link">Company</a>
+                    <a href="pricing.html" class="nav-link active">Pricing</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="http://localhost:3000" class="nav-link">Resources</a>
+                </nav>
+                <button class="cta-button">Get started</button>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Plans for every recruiter — scale up when you're ready</h1>
+                <p>Choose the perfect plan for your recruiting agency. Start small and grow with confidence.</p>
+                
+                <!-- Billing Toggle -->
+                <div class="billing-toggle">
+                    <span class="toggle-label">Monthly</span>
+                    <div class="toggle-switch active" id="billingToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <span class="toggle-label">
+                        Annual 
+                        <span class="save-badge">Save 25%</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan Cards -->
+    <section class="pricing-plans">
+        <div class="container">
+            <div class="plans-grid">
+                <!-- Solo Plan -->
+                <div class="plan-card" data-plan="solo">
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Solo</h3>
+                        <p>Perfect for individual recruiters</p>
+                    </div>
+                    <div class="plan-price">
+                        <span class="price-amount">$149</span>
+                        <span class="price-period">/month</span>
+                        <div class="annual-savings" style="display: block;">
+                            <span class="original-price">$199/month</span>
+                            <span class="save-amount">Save 25%</span>
+                        </div>
+                    </div>
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>600</strong> data credits/month</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>6</strong> premium email inboxes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>AI-powered prospecting</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Email automation sequences</span>
+                        </div>
+                    </div>
+                    <button class="plan-cta">Start Solo Plan</button>
+                </div>
+
+                <!-- Team Plan -->
+                <div class="plan-card popular" data-plan="team">
+                    <div class="popular-badge">
+                        <i class="fas fa-star"></i>
+                        Most Popular
+                    </div>
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Team</h3>
+                        <p>Built for growing agencies</p>
+                    </div>
+                    <div class="plan-price">
+                        <span class="price-amount">$650</span>
+                        <span class="price-period">/month</span>
+                        <div class="price-note">Up to 10 seats included</div>
+                        <div class="annual-savings" style="display: block;">
+                            <span class="original-price">$750/month</span>
+                            <span class="save-amount">Save 13%</span>
+                        </div>
+                    </div>
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>4,000</strong> data credits/month</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>30</strong> premium email inboxes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Advanced automation workflows</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Team collaboration tools</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Priority support</span>
+                        </div>
+                    </div>
+                    <button class="plan-cta primary">Start Team Plan</button>
+                    <div class="extra-seat-note">
+                        Up to 10 seats included - no additional cost
+                    </div>
+                </div>
+
+                <!-- Agency Plan -->
+                <div class="plan-card" data-plan="agency">
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Agency</h3>
+                        <p>Custom solutions for large agencies</p>
+                    </div>
+                    <div class="plan-price">
+                        <span class="price-amount">Custom</span>
+                        <span class="price-period">pricing</span>
+                    </div>
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>Unlimited</strong> data credits</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>Unlimited</strong> email inboxes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Custom integrations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Dedicated account manager</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>SLA & enterprise support</span>
+                        </div>
+                    </div>
+                    <button class="plan-cta">Let's Talk</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seat Slider -->
+    <section class="seat-calculator">
+        <div class="container">
+            <div class="calculator-content">
+                <h3>How many seats do you need?</h3>
+                <div class="slider-container">
+                    <input type="range" id="seatSlider" min="1" max="20" value="1" class="seat-slider">
+                    <div class="slider-labels">
+                        <span>1</span>
+                        <span>5</span>
+                        <span>10</span>
+                        <span>15</span>
+                        <span>20+</span>
+                    </div>
+                </div>
+                <div class="seat-display" id="seatDisplay">
+                    1 seat
+                </div>
+                <div class="cost-estimate" id="costEstimate">
+                    <span class="estimate-label">Estimated cost:</span>
+                    <span class="estimate-amount">$149/month</span>
+                </div>
+                <div class="recommendation" id="recommendationText">
+                    Perfect for individual recruiters - Solo plan recommended
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Matrix -->
+    <section class="feature-matrix">
+        <div class="container">
+            <div class="matrix-header">
+                <h3>Compare all features</h3>
+                <p>Everything you need to scale your recruiting agency</p>
+            </div>
+            
+            <div class="matrix-table">
+                <div class="matrix-row header-row">
+                    <div class="feature-name">Features</div>
+                    <div class="plan-column">Solo</div>
+                    <div class="plan-column">Team</div>
+                    <div class="plan-column">Agency</div>
+                </div>
+
+                <!-- Data Credits Category -->
+                <div class="category-header">
+                    <i class="fas fa-database"></i>
+                    Data Credits & Enrichment
+                </div>
+                
+                <div class="matrix-row">
+                    <div class="feature-name">Monthly data credits</div>
+                    <div class="plan-column">600</div>
+                    <div class="plan-column">4,000</div>
+                    <div class="plan-column">Unlimited</div>
+                </div>
+                
+                <div class="matrix-row">
+                    <div class="feature-name">Real-time data enrichment</div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                </div>
+
+                <!-- Automation Category -->
+                <div class="category-header">
+                    <i class="fas fa-robot"></i>
+                    Automation & AI
+                </div>
+                
+                <div class="matrix-row">
+                    <div class="feature-name">Email automation sequences</div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                </div>
+                
+                <div class="matrix-row expandable" style="display: none;">
+                    <div class="feature-name">Advanced workflow automation</div>
+                    <div class="plan-column"><i class="fas fa-times"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                </div>
+
+                <!-- Collaboration Category -->
+                <div class="category-header expandable" style="display: none;">
+                    <i class="fas fa-users"></i>
+                    Collaboration
+                </div>
+                
+                <div class="matrix-row expandable" style="display: none;">
+                    <div class="feature-name">Team workspaces</div>
+                    <div class="plan-column"><i class="fas fa-times"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                </div>
+
+                <!-- Security Category -->
+                <div class="category-header expandable" style="display: none;">
+                    <i class="fas fa-shield-alt"></i>
+                    Security & Compliance
+                </div>
+                
+                <div class="matrix-row expandable" style="display: none;">
+                    <div class="feature-name">SOC 2 compliance</div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                    <div class="plan-column"><i class="fas fa-check"></i></div>
+                </div>
+            </div>
+            
+            <button class="expand-matrix" id="expandMatrix">
+                <i class="fas fa-chevron-down"></i>
+                Show all features
+            </button>
+        </div>
+    </section>
+
+    <!-- Add-ons -->
+    <section class="addons-section">
+        <div class="container">
+            <div class="addons-header">
+                <h3>Power up with add-ons</h3>
+                <p>Extend your plan with additional credits and premium features</p>
+            </div>
+            
+            <div class="addons-grid">
+                <div class="addon-card">
+                    <div class="addon-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h4>+1,000 Credits</h4>
+                    <p>Additional data enrichment credits for high-volume prospecting</p>
+                    <div class="addon-price">$40<span>/month</span></div>
+                    <button class="addon-cta">Add to Plan</button>
+                </div>
+                
+                <div class="addon-card">
+                    <div class="addon-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>+5 Email Inboxes</h4>
+                    <p>Premium warmed-up inboxes for increased sending capacity</p>
+                    <div class="addon-price">$50<span>/month</span></div>
+                    <button class="addon-cta">Add to Plan</button>
+                </div>
+                
+                <div class="addon-card">
+                    <div class="addon-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4>Premium Onboarding</h4>
+                    <p>White-glove setup and training for your entire team</p>
+                    <div class="addon-price">$1,500<span>/one-time</span></div>
+                    <button class="addon-cta">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h3>Frequently asked questions</h3>
+                <p>Everything you need to know about our pricing</p>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are data credits and how do they work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Data credits are used for enriching prospect profiles with emails, phone numbers, and other contact information. Each credit enriches one contact. Credits reset monthly and unused credits don't roll over.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if I exceed my credit limit?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If you exceed your monthly credit limit, you can purchase additional credit packs or upgrade to a higher plan. We'll notify you when you're approaching your limit.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I mix different plans for my team?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Currently, all team members must be on the same plan. However, you can add individual seats to Team plans and customize Agency plans to fit your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a free trial available?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer a 14-day free trial with 100 data credits and access to all core features. No credit card required to start.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I change or cancel my plan anytime?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. You can upgrade, downgrade, or cancel your plan at any time. Changes take effect at the next billing cycle, and we provide prorated refunds for downgrades.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer discounts for annual billing?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Annual billing saves you 25% compared to monthly billing. You'll see the discounted pricing when you toggle to annual billing above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise CTA -->
+    <section class="enterprise-cta">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-text">
+                    <h3>Need 11+ seats or custom data volumes?</h3>
+                    <p>Get a custom quote tailored to your agency's specific needs</p>
+                </div>
+                <button class="cta-button large">Schedule a Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="#integrations">Integrations</a></li>
+                        <li><a href="#security">Security</a></li>
+                        <li><a href="#api">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="company.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="opportunities.html">Careers</a></li>
+                        <li><a href="partners.html">Partners</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#status">Status</a></li>
+                        <li><a href="#contact">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#security">Security</a>
+                    <a href="#compliance">Compliance</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2025 Quinton AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/pricing.js"></script>
+</body>
+</html> 
