@@ -447,7 +447,7 @@ export default function SignupPage() {
               {/* Calendly Embed */}
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 {!calendlyLoaded ? (
-                  <div className="flex items-center justify-center h-[700px] text-gray-500">
+                  <div className="flex items-center justify-center h-[calc(100vh-12rem)] text-gray-500">
                     <div className="text-center">
                       <Calendar className="w-8 h-8 mx-auto mb-2 animate-pulse" />
                       <p>Loading calendar...</p>
@@ -456,7 +456,7 @@ export default function SignupPage() {
                 ) : (
                   <div 
                     className="calendly-inline-widget" 
-                    style={{ minWidth: '320px', height: '700px' }}
+                    style={{ minWidth: '320px', height: 'calc(100vh - 12rem)' }}
                   ></div>
                 )}
               </div>
