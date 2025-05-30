@@ -58,16 +58,16 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-16">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-16 md:py-20">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-2 items-center">
-            <div>
-              <div className="pl-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-2 items-center">
+            <div className="text-left">
+              <div className="pl-0 lg:pl-20">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                   AI Copilot<br/>
                   <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">for Agency Recruiters</span>
                 </h1>
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
                   Sign more clients. Find more candidates. Make more placements.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -85,7 +85,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative mt-12 lg:mt-0">
               {/* Hero Image */}
               <div className="relative flex-1 flex justify-center items-center">
                 <div className="relative w-full max-w-sm">
@@ -135,7 +135,7 @@ export default function HomePage() {
       </section>
 
       {/* Loom Video Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 md:py-24 bg-gray-50">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="max-w-4xl mx-auto text-center">
             <div className="relative">
@@ -163,11 +163,6 @@ export default function HomePage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
               Sign more clients, find more qualified candidates, and close more placements with Quinton AI's end-to-end automation. Built specifically for recruiting agencies to scale revenue and reduce manual work.
             </p>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
-              <Link href="/signup">
-                Sign Up
-              </Link>
-            </Button>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -201,11 +196,6 @@ export default function HomePage() {
           <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
             Quinton AI helps recruiting agencies achieve 28% more placements in 90 days by automating prospecting, outreach, and candidate sourcing
           </p>
-          <Button className="bg-white text-blue-600 hover:bg-gray-100 mb-12" asChild>
-            <Link href="/signup">
-              Sign Up
-            </Link>
-          </Button>
           
           <div className="flex flex-wrap justify-center gap-4">
             <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
