@@ -90,43 +90,10 @@ export default function HomePage() {
               <div className="relative flex-1 flex justify-center items-center">
                 <div className="relative w-full max-w-sm">
                   <img 
-                    src="/hero-image.png" 
+                    src="/QuintonGraphic.png" 
                     alt="Quinton AI Platform" 
                     className="w-full h-auto object-contain"
                   />
-                  
-                  {/* Quinton Logo Overlay on Purple Object */}
-                  <div className="absolute bottom-36 left-1/2 transform -translate-x-1/2 z-10">
-                    <div 
-                      className="flex items-center space-x-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-300/60" 
-                      style={{
-                        transform: 'perspective(300px) rotateY(0deg) rotateX(0deg) scaleY(0.9)',
-                        transformStyle: 'preserve-3d',
-                        boxShadow: '0 4px 12px rgba(147, 51, 234, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
-                        background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0.85) 100%)',
-                        borderRadius: '50px',
-                        clipPath: 'ellipse(100% 90% at 50% 50%)'
-                      }}
-                    >
-                      <span 
-                        className="text-3xl" 
-                        style={{
-                          transform: 'rotateY(-8deg) translateZ(2px)',
-                          transformOrigin: 'center center'
-                        }}
-                      >✨</span>
-                      <span 
-                        className="text-2xl font-medium bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent"
-                        style={{
-                          transform: 'rotateY(-4deg) translateZ(2px)',
-                          transformOrigin: 'center center',
-                          letterSpacing: '0.5px'
-                        }}
-                      >
-                        Quinton
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
