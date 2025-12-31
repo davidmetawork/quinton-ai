@@ -8,18 +8,14 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Quinton AI – AI Copilot for Agency Recruiters.',
-  description: 'Sign more clients. Find more candidates. Make more placements. Transform your recruiting with AI-powered digital workers.',
+  title: 'Quinton | AI Outbound for Recruiters',
+  description: 'Sign more clients. Source more candidates. Make more placements. The AI outbound system built for modern recruiting agencies.',
   icons: {
     icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#4f46e5' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
   },
   manifest: '/site.webmanifest',
