@@ -8,7 +8,6 @@ export default function DocsPage() {
       title: "Getting Started",
       description: "Everything you need to begin your journey with Quinton AI",
       icon: BookOpen,
-      color: "blue",
       docs: [
         {
           title: "Get Clients Tab Guide",
@@ -44,105 +43,77 @@ export default function DocsPage() {
     }
   ]
 
-  const getColorClasses = (color: string) => {
-    switch (color) {
-      case 'blue':
-        return {
-          bg: 'bg-blue-100',
-          text: 'text-blue-600',
-          hover: 'hover:bg-blue-200'
-        }
-      case 'green':
-        return {
-          bg: 'bg-green-100',
-          text: 'text-green-600',
-          hover: 'hover:bg-green-200'
-        }
-      case 'purple':
-        return {
-          bg: 'bg-purple-100',
-          text: 'text-purple-600',
-          hover: 'hover:bg-purple-200'
-        }
-      default:
-        return {
-          bg: 'bg-gray-100',
-          text: 'text-gray-600',
-          hover: 'hover:bg-gray-200'
-        }
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0a0a0f] text-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Documentation
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent block leading-relaxed">
-                Everything you need to know
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Comprehensive guides and tutorials to help you master Quinton AI. From quick setup to advanced automation strategies.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white h-11 px-8">
-                <BookOpen className="w-5 h-5 mr-2" />
+      <section className="relative pt-24 pb-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 max-w-7xl relative z-10 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+            Documentation <span className="inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic pb-1 px-8 -mx-8" style={{ fontFamily: 'Georgia, serif' }}>Hub</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+            Comprehensive guides and tutorials to help you master Quinton AI. From quick setup to advanced automation strategies.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
+              <Link href="/university/docs/getting-started/quick-start">
+                <Zap className="w-5 h-5 mr-2" />
                 Quick Start Guide
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 h-11 px-8">
-                Browse All Docs
-              </Button>
-            </div>
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5" asChild>
+              <Link href="/university">
+                Back to University
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Documentation Sections */}
-      <section className="py-20 bg-white">
+      <section className="pb-24">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="space-y-16">
+          <div className="space-y-20">
             {docSections.map((section, index) => {
-              const colors = getColorClasses(section.color)
               const Icon = section.icon
               
               return (
-                <div key={index} className="space-y-8">
+                <div key={index} className="space-y-10">
                   <div className="text-center">
-                    <div className={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
-                      <Icon className={`w-8 h-8 ${colors.text}`} />
+                    <div className="w-16 h-16 bg-violet-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <Icon className="w-8 h-8 text-violet-400" />
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
                       {section.title}
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
                       {section.description}
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {section.docs.map((doc, docIndex) => (
                       <Link key={docIndex} href={doc.href} className="group">
-                        <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className={`w-8 h-8 ${colors.bg} rounded-lg flex items-center justify-center`}>
-                              <BookOpen className={`w-4 h-4 ${colors.text}`} />
+                        <div className="bg-[#12121a] border border-white/5 rounded-2xl p-8 hover:border-violet-500/30 transition-all h-full flex flex-col">
+                          <div className="flex items-center justify-between mb-6">
+                            <div className="w-10 h-10 bg-violet-500/10 rounded-lg flex items-center justify-center">
+                              <BookOpen className="w-5 h-5 text-violet-400" />
                             </div>
-                            <span className="text-sm text-gray-500">{doc.time}</span>
+                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{doc.time}</span>
                           </div>
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">
                             {doc.title}
                           </h3>
-                          <p className="text-gray-600 text-sm mb-4">
+                          <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-1">
                             {doc.description}
                           </p>
-                          <div className={`flex items-center ${colors.text} text-sm font-medium`}>
+                          <div className="flex items-center text-white font-bold text-sm mt-auto">
                             <span>Read guide</span>
-                            <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>
                       </Link>
@@ -155,23 +126,18 @@ export default function DocsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Need help getting started?
-          </h2>
-          <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
-            Our support team is here to help you succeed. Get personalized assistance and expert guidance.
-          </p>
+      {/* Help Section */}
+      <section className="py-24 border-t border-white/5 bg-[#06060a]">
+        <div className="container mx-auto px-6 max-w-4xl text-center">
+          <h2 className="text-3xl font-bold mb-6">Need more help?</h2>
+          <p className="text-gray-400 mb-10 text-lg">Our support team is here to help you succeed. Get personalized assistance and expert guidance.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-blue-600 hover:bg-gray-100 h-11 px-8" asChild>
+            <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
               <Link href="/contact">
                 Contact Support
-                <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
-            <Button className="bg-blue-900 text-white hover:bg-blue-800 border-blue-900 h-11 px-8" asChild>
+            <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5" asChild>
               <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
                 Schedule Demo
               </a>

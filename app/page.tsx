@@ -1,112 +1,412 @@
+"use client"
+
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { ArrowRight, Target, Mail, Search, Bot, BarChart3, Rocket } from 'lucide-react'
+import { ArrowRight, Check, X, Zap, Clock, TrendingUp, Mail, Users, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function HomePage() {
-  const features = [
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
+
+  const faqs = [
     {
-      icon: Target,
-      title: "Premium Email Infrastructure",
-      description: "Warmed-up premium inboxes with proper DKIM/DMARC/SPF records running on private servers for optimal cold email deliverability."
+      question: "How quickly can I get started with Quinton?",
+      answer: "Most agencies are fully operational within 24-48 hours. We handle the entire setup—email infrastructure, domain warming, and integrations. You just bring your ICP and start booking meetings."
     },
     {
-      icon: Mail,
-      title: "Automated Outreach Sequences", 
-      description: "Generate daily lists of 50+ decision makers with ICP filtering, then auto-draft personalized email and LinkedIn sequences contextualized by real-time data."
+      question: "What makes Quinton different from other outreach tools?",
+      answer: "We're built exclusively for recruiting agencies. That means agency-specific workflows, fee-based pricing models, and infrastructure designed for high-volume candidate and client outreach. Plus, we include 5 premium warmed inboxes free."
     },
     {
-      icon: Search,
-      title: "Real-Time Data Enrichment",
-      description: "Scrape and enrich candidate profiles with emails, phones, LinkedIn, and GitHub data from multiple sources in real-time."
+      question: "Do I need technical skills to use Quinton?",
+      answer: "Zero. If you can use LinkedIn, you can use Quinton. Our AI handles the complex stuff—writing personalized sequences, enriching data, managing deliverability. You focus on closing deals."
     },
     {
-      icon: Bot,
-      title: "AI Playbook Automation",
-      description: "End-to-end automation from finding contacts to drafting outreach, with multi-step sequences via Smartlead.ai integration."
+      question: "What kind of results can I expect?",
+      answer: "Our agencies typically see 7-11% positive reply rates on cold outreach, 3x more emails sent per recruiter, and 70% sign a new client within their first 45 days. Results vary, but the data speaks for itself."
     },
     {
-      icon: BarChart3,
-      title: "Email Performance Tracking",
-      description: "Real-time dashboards tracking send rates, reply rates, and email campaign performance metrics."
-    },
-    {
-      icon: Rocket,
-      title: "Agency-First Design",
-      description: "Built specifically for recruiting agencies with fee-based revenue models, bulk pricing, and recruiter-optimized workflows."
+      question: "How does pricing work?",
+      answer: "We offer flexible plans designed for agencies of all sizes. Every plan includes 5 premium warmed inboxes, AI-powered sequences, and real-time data enrichment. Book a demo to find the right fit for your team."
     }
   ]
 
-  const metrics = [
-    { number: "100+", label: "Recruiting Agencies", description: "Using Quinton to automate their workflows" },
-    { number: "70%", label: "Sign New Client in 45 Days", description: "Of users successfully acquire new clients" },
-    { number: "40hrs", label: "Time Saved Monthly", description: "Per recruiter through automation" }
-  ]
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
       {/* Announcement Banner */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
-          <p className="text-sm">
-            Announcing Quinton AI's premium email inboxes - get 5 for free with your subscription!
-            <Link href="/university/blog/premium-email-infrastructure" className="ml-2 underline hover:no-underline">Learn more↗</Link>
+      <div className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-violet-600 text-white py-2.5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIuMDUiIGN4PSIyMCIgY3k9IjIwIiByPSIxIi8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+        <div className="container mx-auto px-6 max-w-7xl text-center relative">
+          <p className="text-sm font-medium">
+            🎉 Now offering 5 premium warmed inboxes FREE with every subscription
+            <Link href="/university/blog/premium-email-infrastructure" className="ml-2 underline hover:no-underline font-semibold">Learn more →</Link>
           </p>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-16 md:py-20">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-2 items-center">
-            <div className="text-left">
-              <div className="pl-0 lg:pl-20">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                  AI Copilot<br/>
-                  <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">for Agency Recruiters</span>
-                </h1>
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
-                  Sign more clients. Find more candidates. Make more placements.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white h-11 px-8" asChild>
-                    <Link href="/signup">
-                      Sign Up
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                  <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 h-11 px-8" asChild>
-                    <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                      Schedule Demo
-                    </a>
-                  </Button>
-                </div>
-              </div>
+      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-violet-500/15 via-fuchsia-500/5 to-transparent rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-10 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-sm text-gray-300">Trusted by 100+ recruiting agencies</span>
             </div>
-            <div className="relative mt-12 lg:mt-0">
-              {/* Hero Image */}
-              <div className="relative flex-1 flex justify-center items-center">
-                <div className="relative w-full max-w-sm">
-                  <img 
-                    src="/QuintonGraphic.png" 
-                    alt="Quinton AI Platform" 
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              </div>
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[0.95] tracking-tight">
+              <span className="block text-white" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>AI Outbound</span>
+              <span className="inline-block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent italic pb-2 px-8 -mx-8" style={{ fontFamily: 'Georgia, Times, serif' }}>
+                for Recruiters
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Sign more clients. Source more candidates. Make more placements.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-base font-semibold shadow-lg shadow-white/10" asChild>
+                <Link href="/signup">
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-14 px-10 text-base backdrop-blur-sm" asChild>
+                <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                  Book a Demo
+                </a>
+              </Button>
+            </div>
+            
+            <p className="text-sm text-gray-500">Setup in 24 hours • Premium inboxes included • Cancel anytime</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Logo Bar */}
+      <section className="py-12 border-y border-white/5">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <p className="text-center text-sm text-gray-500 mb-8">Trusted by recruiting agencies and staffing firms</p>
+          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-50">
+            {['TechRecruit', 'Apex Staffing', 'HireFast', 'Talent Partners', 'Elite Search', 'NextGen Recruiting'].map((company, i) => (
+              <span key={i} className="text-gray-400 font-semibold text-lg tracking-wide">{company}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Client Video Testimonial - Featured */}
+      <section className="py-16 md:py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-950/20 to-transparent"></div>
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+          <div className="text-center mb-10">
+            <span className="inline-block text-violet-400 text-sm font-semibold tracking-wider uppercase mb-3">Customer Story</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              See why recruiters love Quinton
+            </h2>
+            <p className="text-gray-400 text-lg">Real results from a real agency</p>
+          </div>
+          
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative bg-[#12121a] rounded-xl overflow-hidden border border-white/10">
+              <AspectRatio ratio={16 / 9}>
+                <iframe
+                  src="https://drive.google.com/file/d/1cqE3aGlLRx0xCj-ftvcqUfTLAhleFZW6/preview"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  className="w-full h-full"
+                  title="Quinton AI Client Testimonial"
+                />
+              </AspectRatio>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Loom Video Section */}
-      <section className="py-20 md:py-24 bg-gray-50">
+      {/* Problem Agitation - Before/After */}
+      <section className="py-20 md:py-28 relative">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="relative">
-              <AspectRatio ratio={16 / 9} className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+          <div className="text-center mb-16">
+            <span className="inline-block text-fuchsia-400 text-sm font-semibold tracking-wider uppercase mb-3">The Transformation</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              From chaos to closed deals
+            </h2>
+            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
+              Most recruiting agencies are stuck in the grind. Quinton changes everything.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Before */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-red-500/5 rounded-2xl"></div>
+              <Card className="bg-[#12121a]/80 border-red-500/20 backdrop-blur-sm h-full">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                      <X className="w-5 h-5 text-red-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-red-400">Before Quinton</h3>
+                  </div>
+                  <ul className="space-y-4">
+                    {[
+                      "Spending 4+ hours daily on manual prospecting",
+                      "Cold emails landing in spam, getting 1-2% reply rates",
+                      "Struggling to find quality candidates fast enough",
+                      "Losing deals to competitors with better outreach",
+                      "Working nights and weekends just to keep up",
+                      "No predictable pipeline for new business"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-gray-400">
+                        <X className="w-5 h-5 text-red-400/60 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* After */}
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <Card className="bg-[#12121a]/80 border-violet-500/30 backdrop-blur-sm h-full relative">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center">
+                      <Check className="w-5 h-5 text-violet-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-violet-400">After Quinton</h3>
+                  </div>
+                  <ul className="space-y-4">
+                    {[
+                      "AI generates 50+ qualified leads daily—automatically",
+                      "Premium inboxes hitting primary inbox, 7-11% reply rates",
+                      "Real-time candidate sourcing with verified contact data",
+                      "Personalized sequences that actually get responses",
+                      "40 hours saved per month per recruiter",
+                      "Predictable revenue with consistent client acquisition"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-gray-300">
+                        <Check className="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof - Metrics */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-950/50 via-fuchsia-950/30 to-violet-950/50"></div>
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { number: "100+", label: "Recruiting Agencies", icon: Users },
+              { number: "70%", label: "Sign Client in 45 Days", icon: TrendingUp },
+              { number: "7-11%", label: "Positive Reply Rate", icon: Mail },
+              { number: "40hrs", label: "Saved Monthly", icon: Clock }
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-violet-500/10 mb-4">
+                  <stat.icon className="w-6 h-6 text-violet-400" />
+                </div>
+                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-gray-400 text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-20 md:py-28">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="text-center mb-16">
+            <span className="inline-block text-violet-400 text-sm font-semibold tracking-wider uppercase mb-3">Everything You Need</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Built for agencies that want to scale
+            </h2>
+            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
+              One platform to automate your entire BD and sourcing workflow
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: "🎯",
+                title: "Premium Email Infrastructure",
+                description: "5 warmed inboxes included free. Private servers, proper authentication, and deliverability that actually works."
+              },
+              {
+                icon: "🤖",
+                title: "AI-Powered Sequences",
+                description: "Auto-draft personalized emails and LinkedIn messages using real-time data about your prospects."
+              },
+              {
+                icon: "📊",
+                title: "Real-Time Data Enrichment",
+                description: "Find emails, phones, LinkedIn profiles instantly. Always fresh, always verified."
+              },
+              {
+                icon: "🧠",
+                title: "Agentic AI",
+                description: "Tell Quinton your ideal clients and audience and it will generate new business all on its own."
+              },
+              {
+                icon: "📈",
+                title: "Performance Analytics",
+                description: "Track every prospect, candidate and reply. Know exactly what's working and optimize fast."
+              },
+              {
+                icon: "🔗",
+                title: "CRM Integration",
+                description: "Sync with your existing tools on the team plan, custom integrations can be implemented."
+              }
+            ].map((feature, i) => (
+              <Card key={i} className="bg-[#12121a]/50 border-white/5 hover:border-violet-500/30 transition-all duration-300 group">
+                <CardContent className="p-6">
+                  <div className="text-3xl mb-4">{feature.icon}</div>
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-violet-400 transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 md:py-28 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent"></div>
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-16">
+            <span className="inline-block text-fuchsia-400 text-sm font-semibold tracking-wider uppercase mb-3">Testimonials</span>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Loved by recruiting agencies
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "Quinton has completely transformed our agency. We're booking 3x more meetings with half the effort. The AI personalization is scary good.",
+                author: "Sarah Jenkins",
+                role: "Agency Owner",
+                company: "TechRecruit"
+              },
+              {
+                quote: "Finally, a tool that understands the agency workflow. We signed 4 new clients in our first 2 months. The ROI is insane.",
+                author: "Mike Thompson",
+                role: "Senior Recruiter",
+                company: "Apex Systems"
+              },
+              {
+                quote: "The premium inboxes alone are worth the subscription. Our deliverability went from 30% to 95%. Game changer.",
+                author: "Jessica Rodriguez",
+                role: "Director of Recruitment",
+                company: "HireFast"
+              }
+            ].map((testimonial, i) => (
+              <Card key={i} className="bg-[#12121a]/50 border-white/5 hover:border-white/10 transition-all">
+                <CardContent className="p-6">
+                  <div className="flex gap-1 mb-4">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span key={star} className="text-yellow-400 text-lg">★</span>
+                    ))}
+                  </div>
+                  <p className="text-gray-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 flex items-center justify-center text-white font-semibold">
+                      {testimonial.author.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-white">{testimonial.author}</div>
+                      <div className="text-sm text-gray-500">{testimonial.role}, {testimonial.company}</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 md:py-28">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="text-center mb-12">
+            <span className="inline-block text-violet-400 text-sm font-semibold tracking-wider uppercase mb-3">FAQ</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Questions? We've got answers.
+            </h2>
+            <p className="text-gray-400">
+              The stuff you're probably wondering about
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className="border border-white/10 rounded-xl overflow-hidden bg-[#12121a]/50 hover:border-violet-500/30 transition-colors"
+              >
+                <button
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span className="font-medium text-white">{faq.question}</span>
+                  <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                </button>
+                {openFaq === i && (
+                  <div className="px-6 pb-5">
+                    <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Loom Demo Video - Moved to Bottom */}
+      <section className="py-20 md:py-28 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-violet-950/20 via-transparent to-transparent"></div>
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+          <div className="text-center mb-10">
+            <span className="inline-block text-fuchsia-400 text-sm font-semibold tracking-wider uppercase mb-3">See It In Action</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Watch how Quinton works
+            </h2>
+            <p className="text-gray-400 text-lg">A quick walkthrough from our founder</p>
+          </div>
+          
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+            <div className="relative bg-[#12121a] rounded-xl overflow-hidden border border-white/10">
+              <AspectRatio ratio={16 / 9}>
                 <iframe
                   src="https://www.loom.com/embed/770532d61beb440c94f2a39d799664fa?sid=03e3dd8f-8261-443f-bb08-c65fa67581c9"
                   frameBorder="0"
@@ -120,138 +420,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Transform your recruiting agency with AI
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Sign more clients, find more qualified candidates, and close more placements with Quinton AI's end-to-end automation. Built specifically for recruiting agencies to scale revenue and reduce manual work.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <div className="mb-4">
-                    <feature.icon className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <CardTitle className="text-xl font-semibold text-gray-900">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Growth Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Scale Your Recruiting Agency with AI
+      {/* Final CTA */}
+      <section className="py-20 md:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-violet-950/50 via-fuchsia-950/20 to-transparent"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            Ready to scale your outbound?
           </h2>
-          <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
-            Quinton AI helps recruiting agencies achieve 28% more placements in 90 days by automating prospecting, outreach, and candidate sourcing
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              3x more emails sent per recruiter
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              7-11% positive reply rates
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              40 hours saved per month
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              28% more placements
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Automated candidate sourcing
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Premium email deliverability
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Real-time data enrichment
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Agency-first pricing
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Bank-level security
-            </Badge>
-            <Badge variant="secondary" className="bg-white/20 text-white px-4 py-2 text-sm font-medium hover:bg-white/30 transition-colors">
-              Multi-step sequences
-            </Badge>
-          </div>
-        </div>
-      </section>
-
-      {/* Metrics Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Trusted by leading recruiting agencies
-            </h2>
-            <p className="text-xl text-gray-600">
-              See how agencies are transforming their operations with Quinton AI
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {metrics.map((metric, index) => (
-              <Card key={index} className="text-center border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <CardTitle className="text-4xl font-bold text-blue-600 mb-2">
-                    {metric.number}
-                  </CardTitle>
-                  <CardDescription className="text-lg font-semibold text-gray-900">
-                    {metric.label}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    {metric.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Ready to transform your recruiting agency?
-          </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            Join recruiting agencies already using Quinton AI to automate prospecting, personalize outreach, and close more placements. Contact us to get started today.
+          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            Join 100+ agencies already using Quinton to sign more clients and source more candidates. Get set up in 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white h-11 px-8" asChild>
+            <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-lg font-semibold shadow-lg shadow-white/10" asChild>
               <Link href="/signup">
-                Sign Up
+                Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 h-11 px-8" asChild>
+            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-14 px-10 text-lg" asChild>
               <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                Schedule Demo
+                Book a Demo
               </a>
             </Button>
           </div>
@@ -259,4 +449,4 @@ export default function HomePage() {
       </section>
     </div>
   )
-} 
+}

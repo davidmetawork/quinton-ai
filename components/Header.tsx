@@ -3,25 +3,33 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sparkles } from 'lucide-react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
+    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'University', href: '/university' },
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/5">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <img src="/favicon-32x32.png" alt="Quinton" className="w-8 h-8" />
-            <span className="text-xl font-medium bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">Quinton</span>
+          <Link href="/" className="flex items-center space-x-2.5 group">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative bg-[#0a0a0f] rounded-full p-1 border border-white/10">
+                <Sparkles className="w-5 h-5 text-violet-400" />
+              </div>
+            </div>
+            <span className="text-xl font-bold tracking-tight text-white">
+              Quinton<span className="text-violet-400">.</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -30,33 +38,21 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={
-                  item.name === 'University' 
-                    ? "text-gray-600 hover:text-gray-900 transition-colors drop-shadow-[0_0_12px_rgba(79,70,229,0.6)] hover:drop-shadow-[0_0_16px_rgba(79,70,229,0.8)] tracking-wide"
-                    : "text-gray-600 hover:text-gray-900 transition-colors"
-                }
-                style={
-                  item.name === 'University' 
-                    ? {
-                        WebkitTextStroke: '1px rgb(79, 70, 229)',
-                        textShadow: '0 0 1px rgb(79, 70, 229)'
-                      }
-                    : undefined
-                }
+                className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
               >
-                <span className="relative z-10">{item.name}</span>
+                {item.name}
               </Link>
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50" asChild>
+          <div className="hidden md:flex items-center space-x-3">
+            <Button variant="ghost" className="text-gray-400 hover:text-white hover:bg-white/5" asChild>
               <Link href="https://dev.quinton.ai" target="_blank" rel="noopener noreferrer">
                 Login
               </Link>
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
+            <Button className="bg-white text-black hover:bg-gray-100 font-medium" asChild>
               <Link href="/signup">
                 Sign Up
               </Link>
@@ -65,7 +61,7 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden"
+            className="md:hidden text-gray-400 hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
@@ -79,36 +75,31 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-              {navigation.map((item) => (
+            <div className="px-2 pt-2 pb-4 space-y-1 bg-[#0a0a0f] border-t border-white/5">
+              <Link
+                href="/"
+                className="block px-3 py-3 text-gray-400 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              {navigation.slice(1).map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={
-                    item.name === 'University'
-                      ? "block px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors drop-shadow-[0_0_12px_rgba(79,70,229,0.6)] hover:drop-shadow-[0_0_16px_rgba(79,70,229,0.8)] tracking-wide"
-                      : "block px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-                  }
-                  style={
-                    item.name === 'University' 
-                      ? {
-                          WebkitTextStroke: '1px rgb(79, 70, 229)',
-                          textShadow: '0 0 1px rgb(79, 70, 229)'
-                        }
-                      : undefined
-                  }
+                  className="block px-3 py-3 text-gray-400 hover:text-white transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="relative z-10">{item.name}</span>
+                  {item.name}
                 </Link>
               ))}
-              <div className="px-3 py-2">
-                <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 mb-3" asChild>
+              <div className="px-3 pt-4 space-y-3">
+                <Button variant="outline" className="w-full border-white/10 text-gray-300 hover:bg-white/5" asChild>
                   <Link href="https://dev.quinton.ai" target="_blank" rel="noopener noreferrer">
                     Login
                   </Link>
                 </Button>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" asChild>
+                <Button className="w-full bg-white text-black hover:bg-gray-100" asChild>
                   <Link href="/signup">
                     Sign Up
                   </Link>
@@ -120,4 +111,4 @@ export default function Header() {
       </div>
     </header>
   )
-} 
+}

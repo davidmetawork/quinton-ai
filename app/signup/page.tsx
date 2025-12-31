@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowLeft, Calendar, Users, Zap, Shield, CheckCircle } from 'lucide-react'
 
@@ -53,115 +52,113 @@ export default function SignupPage() {
           url: 'https://calendly.com/quintonai/30min',
           parentElement: calendlyContainer,
           prefill: {},
-          utm: {}
+          utm: {},
+          // Custom styling for Calendly
+          styles: {
+            backgroundColor: '12121a',
+            textColor: 'ffffff',
+            primaryColor: '8b5cf6'
+          }
         })
       }
     }
   }, [calendlyLoaded])
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-8">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="flex items-center mb-6">
-            <Link href="/" className="flex items-center text-blue-600 hover:text-blue-700">
+    <div className="min-h-screen bg-[#0a0a0f] text-white">
+      {/* Header Section */}
+      <section className="relative pt-16 pb-12 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+          <div className="flex items-center mb-10">
+            <Link href="/" className="flex items-center text-gray-400 hover:text-white transition-colors">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </div>
           
-          <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Book Your Demo Call
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              Book Your <span className="inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic pb-1 px-8 -mx-8" style={{ fontFamily: 'Georgia, serif' }}>demo</span> call
             </h1>
-            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 mb-6 leading-relaxed">
               See how Quinton can replace your entire recruiting tech stack with one AI-powered platform.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Full-Screen Calendar Section */}
-      <section className="py-8">
+      {/* Calendar Section */}
+      <section className="pb-24">
         <div className="container mx-auto px-6 max-w-6xl">
-          {!calendlyLoaded ? (
-            <div className="flex items-center justify-center h-[700px] text-gray-500 bg-white rounded-xl border border-gray-200 shadow-lg">
-              <div className="text-center">
-                <Calendar className="w-12 h-12 mx-auto mb-4 animate-pulse text-blue-600" />
-                <p className="text-lg">Loading calendar...</p>
-              </div>
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-[#12121a] rounded-xl overflow-hidden border border-white/5">
+              {!calendlyLoaded ? (
+                <div className="flex items-center justify-center h-[700px]">
+                  <div className="text-center">
+                    <Calendar className="w-12 h-12 mx-auto mb-4 animate-pulse text-violet-400" />
+                    <p className="text-lg text-gray-400">Loading calendar...</p>
+                  </div>
+                </div>
+              ) : (
+                <div 
+                  className="calendly-inline-widget" 
+                  style={{ minWidth: '100%', height: '700px' }}
+                ></div>
+              )}
             </div>
-          ) : (
-            <div 
-              className="calendly-inline-widget" 
-              style={{ minWidth: '100%', height: '700px' }}
-            ></div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* What You'll Learn Section - Below Calendar */}
-      <section className="py-16 bg-gray-50">
+      {/* Benefits & Trust Indicators */}
+      <section className="py-24 bg-[#06060a]">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              What You'll Learn on This Call
-            </h2>
-            <p className="text-lg text-gray-600">
-              30-minute call, no commitment required
-            </p>
+            <h2 className="text-3xl font-bold mb-4">What to expect</h2>
+            <p className="text-gray-400">A 30-minute deep dive into your agency's outbound potential.</p>
           </div>
           
-          {/* Benefits Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                <CheckCircle className="h-6 w-6 text-green-500 mr-4 mt-0.5 flex-shrink-0" />
-                <p className="text-gray-700 font-medium">{benefit}</p>
+              <div key={index} className="flex items-start bg-[#12121a] p-6 rounded-xl border border-white/5 hover:border-violet-500/30 transition-all">
+                <CheckCircle className="h-5 w-5 text-violet-400 mr-4 mt-1 flex-shrink-0" />
+                <p className="text-gray-300 text-sm font-medium leading-relaxed">{benefit}</p>
               </div>
             ))}
           </div>
 
-          {/* Trust Indicators */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-green-600" />
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {[
+              { icon: Shield, title: "No Commitment", desc: "Just a friendly demo call" },
+              { icon: Users, title: "Expert Support", desc: "Built by recruiting experts" },
+              { icon: Zap, title: "Quick Setup", desc: "Live in 24-48 hours" }
+            ].map((item, i) => (
+              <div key={i} className="text-center p-8 bg-[#12121a]/50 rounded-2xl border border-white/5">
+                <div className="w-16 h-16 bg-violet-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="w-8 h-8 text-violet-400" />
+                </div>
+                <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                <p className="text-gray-500 text-sm">{item.desc}</p>
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">No Commitment</h4>
-              <p className="text-gray-600">Just a friendly demo call</p>
-            </div>
-            
-            <div className="text-center bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-blue-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Expert Team</h4>
-              <p className="text-gray-600">Former LinkedIn & Google execs</p>
-            </div>
-            
-            <div className="text-center bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-purple-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Quick Setup</h4>
-              <p className="text-gray-600">Live in 48 hours</p>
-            </div>
+            ))}
           </div>
 
-          {/* Social Proof */}
-          <Card className="bg-blue-50 border-blue-200 max-w-lg mx-auto">
-            <CardContent className="p-8 text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">100+</div>
-              <div className="text-gray-700 font-medium mb-3">Agencies Already Using Quinton</div>
-              <div className="text-gray-600">
-                "Quinton replaced our entire tech stack and saved us $2,000/month per recruiter"
-              </div>
+          <Card className="bg-gradient-to-br from-violet-600/20 to-fuchsia-600/10 border-white/10 max-w-xl mx-auto">
+            <CardContent className="p-10 text-center">
+              <div className="text-5xl font-bold text-white mb-2 tracking-tight">100+</div>
+              <div className="text-violet-300 font-bold uppercase tracking-widest text-xs mb-6">Agencies Trust Quinton</div>
+              <p className="text-gray-300 italic text-lg leading-relaxed">
+                "Quinton replaced our entire tech stack and allowed us to scale our client acquisition without adding more recruiters."
+              </p>
             </CardContent>
           </Card>
         </div>
       </section>
     </div>
   )
-} 
+}
