@@ -150,7 +150,7 @@ export default function PricingPage() {
                           ${currentPrice} per recruiter
                         </div>
                       )}
-                      {isAnnual && currentPrice !== null && (
+                      {isAnnual && currentPrice !== null && totalPrice !== null && (
                         <div className="mt-2 text-violet-400 text-sm font-medium">
                           Billed annually (${totalPrice * 12}/year)
                         </div>
