@@ -1,87 +1,89 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Mail, MessageSquare, ArrowLeft, Clock } from 'lucide-react'
+import { Mail, MessageSquare, Phone, MapPin, ArrowLeft, Clock } from 'lucide-react'
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Header Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
-          <div className="flex items-center mb-8">
-            <Link href="/" className="flex items-center text-gray-400 hover:text-white transition-colors">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-12">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="flex items-center mb-6">
+            <Link href="/" className="flex items-center text-blue-600 hover:text-blue-700 mr-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </div>
           
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Get in <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic" style={{ fontFamily: 'Georgia, serif' }}>touch</span>
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Get in Touch
             </h1>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              Ready to scale your recruiting outbound? We'd love to hear from you and discuss how Quinton AI can help your agency.
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Ready to transform your recruiting agency with AI? We'd love to hear from you and discuss how Quinton AI can help you close more placements.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Info Section */}
-      <section className="pb-24">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Primary Contact */}
-            <Card className="bg-[#12121a] border-white/5 hover:border-violet-500/30 transition-all">
-              <CardHeader className="pt-10 pb-8 text-center border-b border-white/5">
-                <div className="bg-violet-500/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="w-6 h-6 text-violet-400" />
-                </div>
-                <CardTitle className="text-2xl font-bold mb-2">Direct Contact</CardTitle>
-                <CardDescription className="text-gray-400">
-                  Reach out directly for personalized assistance
+      {/* Contact Information */}
+      <section className="py-16">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Main Contact Card */}
+            <Card className="border-blue-200 bg-blue-50">
+              <CardHeader>
+                <CardTitle className="flex items-center text-blue-900">
+                  <Mail className="w-5 h-5 mr-2" />
+                  Primary Contact
+                </CardTitle>
+                <CardDescription>
+                  Reach out directly to our founder for personalized assistance
                 </CardDescription>
               </CardHeader>
-              <CardContent className="p-10 text-center">
-                <div className="mb-8">
-                  <div className="text-2xl font-bold text-white mb-1">David Phillips</div>
-                  <div className="text-gray-500 font-medium uppercase tracking-widest text-[10px] mb-4">Founder</div>
+              <CardContent className="space-y-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-900 mb-2">David Phillips</div>
+                  <div className="text-gray-600 mb-4">Cofounder</div>
+                  
                   <a 
                     href="mailto:david@quinton.ai"
-                    className="text-xl text-violet-400 hover:text-violet-300 transition-colors font-semibold"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-lg"
                   >
+                    <Mail className="w-5 h-5 mr-2" />
                     david@quinton.ai
                   </a>
                 </div>
-                <Button 
-                  asChild
-                  className="w-full h-12 bg-white text-black hover:bg-gray-100 font-bold"
-                >
-                  <a href="mailto:david@quinton.ai?subject=Quinton AI Inquiry">
-                    Send Email
-                  </a>
-                </Button>
+                
+                <div className="border-t pt-4 mt-6">
+                  <Button 
+                    asChild
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    size="lg"
+                  >
+                    <a href="mailto:david@quinton.ai?subject=Quinton AI Inquiry">
+                      Send Email
+                    </a>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Quick Support */}
+            {/* Quick Actions */}
             <div className="space-y-6">
-              <Card className="bg-[#12121a] border-white/5">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center text-white text-lg">
-                    <MessageSquare className="w-5 h-5 mr-3 text-violet-400" />
+                  <CardTitle className="flex items-center">
+                    <MessageSquare className="w-5 h-5 mr-2" />
                     Schedule a Demo
                   </CardTitle>
-                  <CardDescription className="text-gray-400">
-                    Book a personalized walkthrough of the platform
+                  <CardDescription>
+                    Book a personalized demo to see Quinton AI in action
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button asChild className="w-full bg-white/5 text-white border border-white/10 hover:bg-white/10">
+                  <Button asChild className="w-full" variant="outline">
                     <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
                       Book Demo Call
                     </a>
@@ -89,27 +91,21 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#12121a] border-white/5">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center text-white text-lg">
-                    <Clock className="w-5 h-5 mr-3 text-violet-400" />
+                  <CardTitle className="flex items-center">
+                    <Clock className="w-5 h-5 mr-2" />
                     Response Time
                   </CardTitle>
+                  <CardDescription>
+                    We typically respond within 24 hours
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4 text-sm">
-                    <div className="flex justify-between items-center py-2 border-b border-white/5">
-                      <span className="text-gray-400">General Inquiries</span>
-                      <span className="text-white font-medium">Within 24 hours</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 border-b border-white/5">
-                      <span className="text-gray-400">Demo Requests</span>
-                      <span className="text-white font-medium">Same business day</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-400">Technical Support</span>
-                      <span className="text-white font-medium">Within 4 hours</span>
-                    </div>
+                  <div className="text-sm text-gray-600">
+                    <p>• General inquiries: Within 24 hours</p>
+                    <p>• Demo requests: Same business day</p>
+                    <p>• Technical support: Within 4 hours</p>
                   </div>
                 </CardContent>
               </Card>
@@ -118,13 +114,62 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Simple Footer Note */}
-      <section className="py-24 border-t border-white/5 bg-[#06060a]">
+      {/* FAQ Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-600">
+              Quick answers to common questions about Quinton AI
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">How quickly can I get started?</h3>
+              <p className="text-gray-600 text-sm mb-4">Most agencies are up and running within 30 minutes of their first call. We provide full onboarding support.</p>
+              
+              <h3 className="font-semibold text-gray-900 mb-2">What's included in the demo?</h3>
+              <p className="text-gray-600 text-sm mb-4">We'll show you live prospecting, email personalization, and how our AI workers integrate with your existing workflow.</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Do you offer custom pricing?</h3>
+              <p className="text-gray-600 text-sm mb-4">Yes! For agencies with 25+ recruiters, we offer custom enterprise pricing and features.</p>
+              
+              <h3 className="font-semibold text-gray-900 mb-2">Can I integrate with my existing tools?</h3>
+              <p className="text-gray-600 text-sm mb-4">Quinton AI works as a standalone platform. We're designed to complement your existing workflow without requiring complex integrations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <h2 className="text-2xl font-bold mb-4">Based in New York City</h2>
-          <p className="text-gray-500">Helping recruiting agencies worldwide scale with AI.</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Ready to Transform Your Agency?
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Join 100+ recruiting agencies already using Quinton AI to close more placements.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <a href="mailto:david@quinton.ai?subject=Ready to Get Started with Quinton AI">
+                Contact David
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
+                Schedule Demo
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
     </div>
   )
-}
+} 
+ 

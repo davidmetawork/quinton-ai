@@ -1,0 +1,33 @@
+<svg width="1128" height="191" viewBox="0 0 1128 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1128" height="191" fill="#0a0a0f"/>
+  
+  <defs>
+    <radialGradient id="banner-glow" cx="80%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="1128" height="191" fill="url(#banner-glow)"/>
+  
+  <!-- Content Container (Shifted to the right to avoid logo overlap) -->
+  <g transform="translate(450, 0)">
+    <!-- Logo Mark -->
+    <g transform="translate(0, 65) scale(4)">
+      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z" fill="#a78bfa"/>
+      <path d="M20 3v4M22 5h-4M4 17v2M5 18H3" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    
+    <!-- Text Content -->
+    <text x="100" y="85" fill="white" style="font-family: sans-serif; font-weight: 900; font-size: 56px; letter-spacing: -0.04em;">AI Outbound</text>
+    <text x="100" y="145" fill="#c084fc" style="font-family: serif; font-style: italic; font-size: 56px; letter-spacing: -0.02em;">for Recruiters</text>
+    
+    <text x="105" y="175" fill="#64748b" style="font-family: sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;">Scale your agency with Quinton AI</text>
+  </g>
+  
+  <!-- Subtle Grid Lines -->
+  <path d="M0 0.5H1128" stroke="white" stroke-opacity="0.03" transform="translate(0, 40)"/>
+  <path d="M0 0.5H1128" stroke="white" stroke-opacity="0.03" transform="translate(0, 80)"/>
+  <path d="M0 0.5H1128" stroke="white" stroke-opacity="0.03" transform="translate(0, 120)"/>
+  <path d="M0 0.5H1128" stroke="white" stroke-opacity="0.03" transform="translate(0, 160)"/>
+</svg>

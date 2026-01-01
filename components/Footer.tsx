@@ -40,15 +40,22 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link href="/" className="flex items-center space-x-2.5 mb-4 group w-fit">
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-[#06060a] rounded-full p-1 border border-white/10">
-                  <Sparkles className="w-5 h-5 text-violet-400" />
-                </div>
+            <Link href="/" className="flex items-center space-x-3 mb-6 group w-fit">
+              <div className="w-10 h-10 bg-[#12121a] rounded-full flex items-center justify-center transition-transform group-hover:scale-105 duration-300 border border-white/10">
+                <svg width="24" height="24" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(150, 150) scale(7.5) translate(-12, -12)">
+                    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z" fill="#a78bfa"/>
+                    <g transform="translate(2, 2) scale(0.5)">
+                      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z" fill="#a78bfa"/>
+                    </g>
+                    <g transform="translate(14, 14) scale(0.5)">
+                      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063A2 2 0 0 0 14.063 15.5l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z" fill="#a78bfa"/>
+                    </g>
+                  </g>
+                </svg>
               </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                Quinton<span className="text-violet-400">.</span>
+              <span className="text-2xl font-black tracking-tighter text-white">
+                Quinton<span className="text-violet-500">.</span>
               </span>
             </Link>
             <p className="text-gray-500 mb-6 max-w-sm text-sm leading-relaxed">
