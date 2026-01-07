@@ -63,6 +63,60 @@
   font-style: italic;
 }
 
+/* Prose Custom - Dark Mode Blog Content */
+.prose-custom {
+  @apply text-gray-300;
+}
+
+.prose-custom h2 {
+  @apply text-2xl font-bold text-white mt-12 mb-6 tracking-tight;
+}
+
+.prose-custom h3 {
+  @apply text-xl font-bold text-white mt-10 mb-4 tracking-tight;
+}
+
+.prose-custom h4 {
+  @apply text-lg font-bold text-white mt-8 mb-3;
+}
+
+.prose-custom p {
+  @apply text-gray-300 leading-relaxed mb-6;
+}
+
+.prose-custom strong {
+  @apply text-white font-semibold;
+}
+
+.prose-custom a {
+  @apply text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors;
+}
+
+.prose-custom ul,
+.prose-custom ol {
+  @apply my-6 space-y-3 text-gray-300;
+}
+
+.prose-custom li {
+  @apply text-gray-300 leading-relaxed;
+}
+
+.prose-custom blockquote {
+  @apply border-l-4 border-violet-500 pl-6 my-8 italic text-gray-400;
+}
+
+.prose-custom code {
+  @apply bg-white/10 text-violet-300 px-2 py-1 rounded text-sm font-mono;
+}
+
+.prose-custom pre {
+  @apply bg-[#12121a] border border-white/10 rounded-xl p-6 my-8 overflow-x-auto;
+}
+
+.prose-custom hr {
+  @apply border-white/10 my-12;
+}
+
 /* Animations */
 @keyframes shimmer {
   from {
