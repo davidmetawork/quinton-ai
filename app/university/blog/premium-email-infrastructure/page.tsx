@@ -3,6 +3,8 @@ import { ArrowLeft, Calendar, Clock, User, Play, Mail, Shield, Server, AlertTria
 import { Button } from '@/components/ui/button'
 
 export default function PremiumEmailInfrastructureBlog() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       <div className="container mx-auto px-6 py-16 max-w-4xl">
@@ -151,7 +153,7 @@ export default function PremiumEmailInfrastructureBlog() {
             <h3 className="text-xl font-bold text-white mb-4">The Quinton Solution</h3>
             <p className="text-gray-400 mb-6">We provide fully managed, premium inboxes that handle all this complexity for you. You get 5 free warmed inboxes with every subscription.</p>
             <Button className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-              <Link href="/signup">Get Started Now</Link>
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">Get Started Now</Link>
             </Button>
           </div>
         </article>
@@ -162,7 +164,7 @@ export default function PremiumEmailInfrastructureBlog() {
           <p className="text-gray-400 mb-8 max-w-xl mx-auto">Join 100+ agencies using Quinton's premium infrastructure to land more placements.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-              <Link href="/signup">Sign Up for Quinton</Link>
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">Sign Up for Quinton</Link>
             </Button>
             <Button variant="outline" size="lg" className="border-white/10 text-white" asChild>
               <Link href="/university">Explore University</Link>

@@ -138,9 +138,9 @@ export default function DocsPage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5" asChild>
-              <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                Schedule Demo
-              </a>
+              <Link href="/about">
+                Learn More
+              </Link>
             </Button>
           </div>
         </div>

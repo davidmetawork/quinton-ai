@@ -175,8 +175,8 @@ export default function VideoTutorialsPage() {
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Need a live demo instead?</h2>
           <p className="text-gray-400 mb-10 text-lg">Schedule a personal walkthrough with our team to see how Quinton can specifically help your agency.</p>
           <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-            <Link href="https://calendly.com/quintonai/30min">
-              Book Live Demo
+            <Link href="/about">
+              Learn More
             </Link>
           </Button>
         </div>

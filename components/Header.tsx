@@ -7,6 +7,7 @@ import { Menu, X, Sparkles } from 'lucide-react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -53,7 +54,7 @@ export default function Header() {
               </Link>
             </Button>
             <Button className="bg-white text-black hover:bg-gray-100 font-medium" asChild>
-              <Link href="/signup">
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
                 Sign Up
               </Link>
             </Button>
@@ -100,7 +101,7 @@ export default function Header() {
                   </Link>
                 </Button>
                 <Button className="w-full bg-white text-black hover:bg-gray-100" asChild>
-                  <Link href="/signup">
+                  <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
                     Sign Up
                   </Link>
                 </Button>

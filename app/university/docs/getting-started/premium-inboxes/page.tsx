@@ -3,6 +3,8 @@ import { ArrowLeft, Mail, Shield, Server, CheckCircle, AlertTriangle, Play } fro
 import { Button } from '@/components/ui/button'
 
 export default function PremiumInboxesGuide() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       <div className="container mx-auto px-6 py-16 max-w-4xl">
@@ -125,7 +127,7 @@ export default function PremiumInboxesGuide() {
             <h3 className="text-xl font-bold text-white mb-4">The Managed Advantage</h3>
             <p className="text-gray-400 mb-6">Quinton handles all of this automatically. Every account includes 5 premium warmed inboxes configured for maximum deliverability.</p>
             <Button className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-              <Link href="/signup">Get Started Now</Link>
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">Get Started Now</Link>
             </Button>
           </div>
         </article>

@@ -3,6 +3,8 @@ import { ArrowLeft, Calendar, Clock, User, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function BookmarkFilterEngagePage() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       <div className="container mx-auto px-6 py-16 max-w-4xl">
@@ -36,7 +38,7 @@ export default function BookmarkFilterEngagePage() {
           <div className="bg-[#12121a] border border-white/5 rounded-2xl p-8 my-12 not-prose">
             <h3 className="text-white font-bold mb-4">One-Click Transformation</h3>
             <p className="text-gray-400 mb-6">Our extension identifies job data instantly and allows you to add it directly to your BD sequences without leaving the page.</p>
-            <Button className="bg-white text-black font-bold" asChild><Link href="/signup">Try the Extension</Link></Button>
+            <Button className="bg-white text-black font-bold" asChild><Link href={signupUrl} target="_blank" rel="noopener noreferrer">Try the Extension</Link></Button>
           </div>
         </article>
       </div>

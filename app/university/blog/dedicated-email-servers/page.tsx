@@ -3,6 +3,8 @@ import { ArrowLeft, Calendar, Clock, User, Server, Shield, TrendingUp, AlertTria
 import { Button } from '@/components/ui/button'
 
 export default function DedicatedEmailServersPage() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       <div className="container mx-auto px-6 py-16 max-w-4xl">
@@ -179,7 +181,7 @@ export default function DedicatedEmailServersPage() {
                 Stop sharing your reputation. Get dedicated servers and predictable deliverability with Quinton AI.
               </p>
               <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold h-14 px-10" asChild>
-                <Link href="/signup">Get Started Now</Link>
+                <Link href={signupUrl} target="_blank" rel="noopener noreferrer">Get Started Now</Link>
               </Button>
             </div>
           </div>

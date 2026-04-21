@@ -5,6 +5,8 @@ import { Database, Mail, Zap, Target, TrendingUp, CheckCircle, ArrowRight, Layer
 import Link from 'next/link'
 
 export default function AboutPage() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   const toolCategories = [
     {
       category: "Data & Enrichment",
@@ -56,15 +58,15 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-semibold" asChild>
-              <Link href="https://calendly.com/quintonai/30min">
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5" asChild>
-              <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                Schedule Demo
-              </a>
+              <Link href="/about">
+                Learn More
+              </Link>
             </Button>
           </div>
         </div>

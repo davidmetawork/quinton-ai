@@ -3,6 +3,8 @@ import { ArrowRight, BookOpen, Video, FileText, Clock, Users, TrendingUp } from 
 import { Button } from '@/components/ui/button'
 
 export default function UniversityPage() {
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       {/* Hero Section */}
@@ -133,7 +135,7 @@ export default function UniversityPage() {
             Join the top recruiting agencies already using Quinton to find better candidates and close more clients.
           </p>
           <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-            <Link href="/signup">
+            <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
               Get Started Now
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>

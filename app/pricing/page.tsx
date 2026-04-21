@@ -13,6 +13,7 @@ import Link from 'next/link'
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true)
   const [seatCount, setSeatCount] = useState([1]) // Using array for Radix slider compatibility
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
 
   const faqs = [
     {
@@ -206,7 +207,11 @@ export default function PricingPage() {
                       }`}
                       asChild
                     >
-                      <Link href={`https://calendly.com/quintonai/30min?a1=${plan.name}&a2=${seatCount[0]}`}>
+                      <Link
+                        href={plan.name === 'Starter' ? signupUrl : `https://calendly.com/quintonai/30min?a1=${plan.name}&a2=${seatCount[0]}`}
+                        target={plan.name === 'Starter' ? '_blank' : undefined}
+                        rel={plan.name === 'Starter' ? 'noopener noreferrer' : undefined}
+                      >
                         {plan.cta}
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
@@ -253,7 +258,7 @@ export default function PricingPage() {
           <h2 className="text-4xl font-bold mb-6">Scale your agency's outbound today.</h2>
           <p className="text-gray-400 mb-10 text-lg">Join the top recruiting agencies using Quinton to find better candidates and close more clients.</p>
           <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-lg font-semibold" asChild>
-            <Link href="https://calendly.com/quintonai/30min">
+            <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
               Get Started Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

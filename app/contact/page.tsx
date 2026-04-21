@@ -82,9 +82,9 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <Button asChild className="w-full bg-white/5 text-white border border-white/10 hover:bg-white/10">
-                    <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                      Book Demo Call
-                    </a>
+                    <Link href="/about">
+                      Learn More
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

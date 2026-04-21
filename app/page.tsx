@@ -9,6 +9,7 @@ import { useState } from 'react'
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const signupUrl = 'https://dev.quinton.ai/sign-up'
 
   const faqs = [
     {
@@ -76,15 +77,15 @@ export default function HomePage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-base font-semibold shadow-lg shadow-white/10" asChild>
-                <Link href="/signup">
+                <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-14 px-10 text-base backdrop-blur-sm" asChild>
-                <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                  Book a Demo
-                </a>
+                <Link href="/about">
+                  Learn More
+                </Link>
               </Button>
             </div>
             
@@ -434,15 +435,15 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-lg font-semibold shadow-lg shadow-white/10" asChild>
-              <Link href="/signup">
+              <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-14 px-10 text-lg" asChild>
-              <a href="https://calendly.com/quintonai/30min" target="_blank" rel="noopener noreferrer">
-                Book a Demo
-              </a>
+              <Link href="/about">
+                Learn More
+              </Link>
             </Button>
           </div>
         </div>
