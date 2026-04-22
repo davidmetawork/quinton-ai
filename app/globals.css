@@ -100,54 +100,70 @@
 }
 
 /* Scales the hero product mock down to fit narrow viewports without re-flowing
-   its desktop-sized children. The mock renders at a fixed natural width and is
-   visually scaled; the wrapper height is explicit so the layout flow is correct.
-   Uses tan(atan2()) trig trick to convert length ratio to unitless scalar. */
+   its desktop-sized children. The mock renders at a fixed natural width
+   (1100px) and is visually scaled per breakpoint; the wrapper height is
+   explicit so the layout flow stays correct. Discrete breakpoints keep this
+   robust across Safari iOS, where calc-inside-trig in transform is unreliable. */
 .hero-mock-fit {
   width: 100%;
 }
 .hero-mock-fit > .hero-mock-fit__inner {
   width: 100%;
 }
-@supports (transform: scale(tan(atan2(1px, 1px)))) {
-  @media (max-width: 767px) {
-    .hero-mock-fit {
-      overflow: hidden;
-      height: calc((100vw - 24px) * 580 / 1100);
-    }
-    .hero-mock-fit > .hero-mock-fit__inner {
-      width: 1100px;
-      transform-origin: top left;
-      transform: scale(tan(atan2(calc(100vw - 24px), 1100px)));
-    }
+
+@media (max-width: 767px) {
+  .hero-mock-fit {
+    overflow: hidden;
+    width: 100%;
+  }
+  .hero-mock-fit > .hero-mock-fit__inner {
+    width: 1100px;
+    transform-origin: top left;
   }
 }
-/* Fallback for browsers without trig functions: hardcoded breakpoint scales */
-@supports not (transform: scale(tan(atan2(1px, 1px)))) {
-  @media (max-width: 380px) {
-    .hero-mock-fit { overflow: hidden; height: 170px; }
-    .hero-mock-fit > .hero-mock-fit__inner {
-      width: 1100px;
-      transform-origin: top left;
-      transform: scale(0.29);
-    }
-  }
-  @media (min-width: 381px) and (max-width: 500px) {
-    .hero-mock-fit { overflow: hidden; height: 200px; }
-    .hero-mock-fit > .hero-mock-fit__inner {
-      width: 1100px;
-      transform-origin: top left;
-      transform: scale(0.34);
-    }
-  }
-  @media (min-width: 501px) and (max-width: 767px) {
-    .hero-mock-fit { overflow: hidden; height: 310px; }
-    .hero-mock-fit > .hero-mock-fit__inner {
-      width: 1100px;
-      transform-origin: top left;
-      transform: scale(0.54);
-    }
-  }
+
+/* Scale targets: container = (100vw - 48px) due to px-6 padding.
+   Each scale × 1100 must fit inside the SMALLEST container in its range.
+   Wrapper height ≈ scale × 660 (natural mock outer height incl. shadow). */
+@media (max-width: 359px) {
+  .hero-mock-fit { height: 158px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.24); }
+}
+@media (min-width: 360px) and (max-width: 379px) {
+  .hero-mock-fit { height: 185px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.28); }
+}
+@media (min-width: 380px) and (max-width: 399px) {
+  .hero-mock-fit { height: 198px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.30); }
+}
+@media (min-width: 400px) and (max-width: 419px) {
+  .hero-mock-fit { height: 211px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.32); }
+}
+@media (min-width: 420px) and (max-width: 439px) {
+  .hero-mock-fit { height: 224px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.34); }
+}
+@media (min-width: 440px) and (max-width: 479px) {
+  .hero-mock-fit { height: 244px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.37); }
+}
+@media (min-width: 480px) and (max-width: 539px) {
+  .hero-mock-fit { height: 257px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.39); }
+}
+@media (min-width: 540px) and (max-width: 599px) {
+  .hero-mock-fit { height: 290px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.44); }
+}
+@media (min-width: 600px) and (max-width: 679px) {
+  .hero-mock-fit { height: 330px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.50); }
+}
+@media (min-width: 680px) and (max-width: 767px) {
+  .hero-mock-fit { height: 376px; }
+  .hero-mock-fit > .hero-mock-fit__inner { transform: scale(0.57); }
 }
 
 /* Prose — light editorial */
