@@ -72,6 +72,8 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    /* Italic glyphs slant past their advance box; extend the painted area so the right edge isn't clipped */
+    padding-inline-end: 0.08em;
   }
 
   .bg-grid-ink {

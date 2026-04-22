@@ -86,9 +86,9 @@ export default function HomePage() {
 
           <Reveal delay={0.05}>
             <h1 className="text-center text-[44px] md:text-[72px] lg:text-[88px] leading-[0.95] tracking-[-0.03em] font-semibold text-balance max-w-5xl mx-auto">
-              The AI Coworker
+              The AI Coworker{' '}
               <br className="hidden md:block" />
-              <span className="font-serif-italic text-gradient-ember pr-1">built for</span>
+              <span className="font-serif-italic text-gradient-ember">built for</span>
               <span className="font-serif-italic text-ink-900"> recruiters.</span>
             </h1>
           </Reveal>
