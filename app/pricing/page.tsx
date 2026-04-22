@@ -2,17 +2,16 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Check, ArrowRight, Users } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal } from '@/components/Reveal'
 
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true)
-  const [seatCount, setSeatCount] = useState([1]) // Using array for Radix slider compatibility
+  const [seatCount, setSeatCount] = useState([1])
   const signupUrl = 'https://dev.quinton.ai/sign-up'
 
   const faqs = [
@@ -73,196 +72,245 @@ export default function PricingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Header Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 max-w-7xl text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Simple, <span className="inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic pb-1 px-8 -mx-8" style={{ fontFamily: 'Georgia, serif' }}>transparent</span> pricing
-          </h1>
-          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Choose the perfect plan to scale your recruiting outbound. No hidden fees, just growth.
-          </p>
+    <div className="bg-cream-100 text-ink-900">
+      {/* ─────────────── HERO ─────────────── */}
+      <section className="relative pt-20 pb-16 md:pt-28 md:pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-ink opacity-60 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(ellipse_at_top,rgba(255,138,61,0.12),transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-cream-100 pointer-events-none" />
+
+        <div className="container relative mx-auto px-6 max-w-6xl text-center">
+          <Reveal>
+            <span className="inline-block text-ember-700 text-[12px] font-medium tracking-[0.2em] uppercase mb-4">
+              Pricing
+            </span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="text-[44px] md:text-[64px] lg:text-[72px] leading-[0.95] tracking-[-0.03em] font-semibold text-balance max-w-4xl mx-auto">
+              Simple,{' '}
+              <span className="font-serif-italic text-gradient-ember">transparent</span>{' '}
+              pricing.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-6 text-lg md:text-xl text-ink-500 max-w-2xl mx-auto leading-relaxed text-balance">
+              Choose the perfect plan to scale your recruiting outbound. No hidden fees, just growth.
+            </p>
+          </Reveal>
 
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <span className={`text-sm font-medium ${!isAnnual ? 'text-white' : 'text-gray-500'}`}>Monthly</span>
-            <Switch
-              checked={isAnnual}
-              onCheckedChange={setIsAnnual}
-              className="bg-white/10"
-            />
-            <span className={`text-sm font-medium ${isAnnual ? 'text-white' : 'text-gray-500'}`}>Annual</span>
-            {isAnnual && (
-              <Badge className="bg-violet-500/20 text-violet-300 border-violet-500/30">
-                Save 25%
-              </Badge>
-            )}
-          </div>
+          <Reveal delay={0.15}>
+            <div className="mt-10 flex items-center justify-center gap-4">
+              <span className={`text-sm font-medium ${!isAnnual ? 'text-ink-900' : 'text-ink-300'}`}>Monthly</span>
+              <Switch checked={isAnnual} onCheckedChange={setIsAnnual} />
+              <span className={`text-sm font-medium ${isAnnual ? 'text-ink-900' : 'text-ink-300'}`}>Annual</span>
+              {isAnnual && (
+                <span className="inline-flex items-center gap-1 bg-signal-500/15 text-signal-600 rounded-full px-2.5 py-0.5 font-medium text-[11px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-signal-500" />
+                  Save 25%
+                </span>
+              )}
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="pb-28">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {/* ─────────────── PRICING CARDS ─────────────── */}
+      <section className="pb-24 md:pb-32">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {plans.map((plan, index) => {
-              const currentPrice = isAnnual ? plan.annualPrice : plan.monthlyPrice;
-              const totalPrice = plan.isPerSeat && currentPrice ? currentPrice * seatCount[0] : currentPrice;
+              const currentPrice = isAnnual ? plan.annualPrice : plan.monthlyPrice
+              const totalPrice = plan.isPerSeat && currentPrice ? currentPrice * seatCount[0] : currentPrice
 
               return (
-                <Card 
-                  key={plan.name} 
-                  className={`relative bg-[#12121a] border-white/5 overflow-hidden transition-all duration-300 hover:border-violet-500/30 ${plan.popular ? 'ring-2 ring-violet-500/50 shadow-[0_0_40px_rgba(139,92,246,0.1)]' : ''}`}
-                >
-                  {plan.popular && (
-                    <div className="absolute top-0 right-0">
-                      <div className="bg-violet-500 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-bl-lg">
-                        Most Popular
-                      </div>
-                    </div>
-                  )}
-                  
-                  <CardHeader className="pt-10 pb-8 text-center border-b border-white/5">
-                    <CardTitle className="text-2xl font-bold mb-2">{plan.name}</CardTitle>
-                    <CardDescription className="text-gray-400 mb-6">
-                      {plan.description}
-                    </CardDescription>
-                    
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="flex items-baseline justify-center gap-1">
-                        {currentPrice === null ? (
-                          <span className="text-5xl font-bold text-white tracking-tight">Custom</span>
-                        ) : (
-                          <>
-                            <span className="text-5xl font-bold text-white tracking-tight">
-                              ${totalPrice}
-                            </span>
-                            <span className="text-gray-500 font-medium">/month</span>
-                          </>
-                        )}
-                      </div>
-                      {plan.isPerSeat && currentPrice !== null && (
-                        <div className="text-xs text-gray-500 font-medium uppercase tracking-widest">
-                          ${currentPrice} per recruiter
-                        </div>
-                      )}
-                      {isAnnual && currentPrice !== null && totalPrice !== null && (
-                        <div className="mt-2 text-violet-400 text-sm font-medium">
-                          Billed annually (${totalPrice * 12}/year)
-                        </div>
-                      )}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="p-8">
-                    {/* Seat Slider for Starter Plan */}
-                    {plan.isPerSeat && (
-                      <div className="mb-10 bg-white/5 p-6 rounded-2xl border border-white/5">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-violet-400" />
-                            <span className="text-sm font-bold text-white uppercase tracking-wider">Recruiter Seats</span>
-                          </div>
-                          <span className="bg-violet-500 text-white px-3 py-1 rounded-lg font-black text-lg">
-                            {seatCount[0]}
-                          </span>
-                        </div>
-                        <Slider
-                          defaultValue={[1]}
-                          max={5}
-                          min={1}
-                          step={1}
-                          value={seatCount}
-                          onValueChange={setSeatCount}
-                          className="my-4"
-                        />
-                        <div className="flex justify-between text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2 px-1">
-                          <span>1 Seat</span>
-                          <span>5 Seats</span>
+                <Reveal key={plan.name} delay={index * 0.08}>
+                  <div
+                    className={`relative h-full rounded-2xl overflow-hidden ${
+                      plan.popular
+                        ? "bg-white border border-ember-600/30 shadow-lift"
+                        : "bg-white border border-ink-100 shadow-soft"
+                    }`}
+                  >
+                    {plan.popular && (
+                      <div
+                        aria-hidden
+                        className="absolute -top-32 -right-32 w-72 h-72 rounded-full bg-gradient-to-br from-ember-500/15 to-ember-700/10 blur-3xl pointer-events-none"
+                      />
+                    )}
+                    {plan.popular && (
+                      <div className="absolute top-0 right-0">
+                        <div className="bg-ember-600 text-white text-[10px] font-semibold px-3 py-1 uppercase tracking-[0.2em] rounded-bl-lg">
+                          Most Popular
                         </div>
                       </div>
                     )}
 
-                    <ul className="space-y-4 mb-8">
-                      {plan.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <div className="mt-1 bg-violet-500/20 rounded-full p-0.5">
-                            <Check className="h-3.5 w-3.5 text-violet-400" />
-                          </div>
-                          <span className="text-gray-300 text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="relative pt-10 pb-8 px-8 text-center border-b border-ink-100">
+                      <div className="text-2xl font-semibold tracking-tight text-ink-900 mb-2">{plan.name}</div>
+                      <p className="text-ink-500 text-[14px] mb-6 max-w-xs mx-auto">
+                        {plan.description}
+                      </p>
 
-                    <Button 
-                      className={`w-full h-14 text-base font-bold transition-all ${
-                        plan.popular 
-                          ? 'bg-white text-black hover:bg-gray-100 shadow-xl shadow-white/5' 
-                          : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
-                      }`}
-                      asChild
-                    >
-                      <Link
-                        href={plan.name === 'Starter' ? signupUrl : `https://calendly.com/quintonai/30min?a1=${plan.name}&a2=${seatCount[0]}`}
-                        target={plan.name === 'Starter' ? '_blank' : undefined}
-                        rel={plan.name === 'Starter' ? 'noopener noreferrer' : undefined}
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="flex items-baseline justify-center gap-1">
+                          {currentPrice === null ? (
+                            <span className="text-5xl font-semibold text-ink-900 tracking-tight">Custom</span>
+                          ) : (
+                            <>
+                              <span className="text-5xl font-semibold text-ink-900 tracking-tight">
+                                ${totalPrice}
+                              </span>
+                              <span className="text-ink-500 font-medium">/month</span>
+                            </>
+                          )}
+                        </div>
+                        {plan.isPerSeat && currentPrice !== null && (
+                          <div className="text-[11px] text-ink-300 font-medium uppercase tracking-[0.2em]">
+                            ${currentPrice} per recruiter
+                          </div>
+                        )}
+                        {isAnnual && currentPrice !== null && totalPrice !== null && (
+                          <div className="mt-1 text-ember-700 text-sm font-medium">
+                            Billed annually (${totalPrice * 12}/year)
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="relative p-8">
+                      {plan.isPerSeat && (
+                        <div className="mb-8 bg-cream-50 p-6 rounded-2xl border border-ink-100">
+                          <div className="flex items-center justify-between mb-5">
+                            <div className="flex items-center gap-2">
+                              <Users className="w-4 h-4 text-ember-600" />
+                              <span className="text-[11px] font-semibold text-ink-900 uppercase tracking-[0.2em]">
+                                Recruiter Seats
+                              </span>
+                            </div>
+                            <span className="bg-ember-600 text-white px-3 py-1 rounded-lg font-semibold text-lg">
+                              {seatCount[0]}
+                            </span>
+                          </div>
+                          <Slider
+                            defaultValue={[1]}
+                            max={5}
+                            min={1}
+                            step={1}
+                            value={seatCount}
+                            onValueChange={setSeatCount}
+                            className="my-4"
+                          />
+                          <div className="flex justify-between text-[10px] font-semibold text-ink-300 uppercase tracking-[0.2em] mt-2 px-1">
+                            <span>1 Seat</span>
+                            <span>5 Seats</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <ul className="space-y-3.5 mb-8">
+                        {plan.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <Check className="w-4 h-4 text-signal-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-ink-700 text-[14px]">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <Button
+                        className={`w-full h-12 rounded-full text-[15px] font-medium ${
+                          plan.popular
+                            ? "bg-action-500 hover:bg-action-600 text-white shadow-lift"
+                            : "bg-ink-900 hover:bg-ink-700 text-cream-100"
+                        }`}
+                        asChild
                       >
-                        {plan.cta}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
+                        <Link
+                          href={plan.name === 'Starter' ? signupUrl : `https://calendly.com/quintonai/30min?a1=${plan.name}&a2=${seatCount[0]}`}
+                          target={plan.name === 'Starter' ? '_blank' : undefined}
+                          rel={plan.name === 'Starter' ? 'noopener noreferrer' : undefined}
+                        >
+                          {plan.cta}
+                          <ArrowRight className="ml-1.5 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </Reveal>
+              )
             })}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-[#06060a]">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-400">Everything you need to know about Quinton AI.</p>
-          </div>
-          
-          <Accordion type="single" collapsible className="space-y-4">
+      {/* ─────────────── FAQ ─────────────── */}
+      <section className="py-24 md:py-28 bg-cream-50 border-y border-ink-100">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <Reveal>
+            <div className="text-center mb-14">
+              <span className="inline-block text-ember-700 text-[12px] font-medium tracking-[0.2em] uppercase mb-4">
+                FAQ
+              </span>
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-balance">
+                Frequently asked{' '}
+                <span className="font-serif-italic text-gradient-ember">questions</span>.
+              </h2>
+              <p className="mt-4 text-ink-500 text-lg">
+                Everything you need to know about Quinton AI.
+              </p>
+            </div>
+          </Reveal>
+
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="border border-white/5 rounded-xl px-6 bg-[#12121a]/50"
-              >
-                <AccordionTrigger className="text-left text-white hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-400 leading-relaxed pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+              <Reveal key={index} delay={index * 0.03}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="rounded-2xl bg-white border border-ink-100 shadow-soft px-6 overflow-hidden"
+                >
+                  <AccordionTrigger className="text-left text-ink-900 hover:no-underline py-5 font-medium text-[17px]">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-ink-700 leading-relaxed pb-5">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </Reveal>
             ))}
           </Accordion>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-violet-950/30 to-transparent"></div>
-        <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
-          <h2 className="text-4xl font-bold mb-6">Scale your agency's outbound today.</h2>
-          <p className="text-gray-400 mb-10 text-lg">Join the top recruiting agencies using Quinton to find better candidates and close more clients.</p>
-          <Button className="bg-white text-black hover:bg-gray-100 h-14 px-10 text-lg font-semibold" asChild>
-            <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
-              Get Started Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
+      {/* ─────────────── FINAL CTA ─────────────── */}
+      <section className="py-24 md:py-32 relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,138,61,0.12),transparent_60%)]"
+        />
+        <div className="container mx-auto px-6 max-w-4xl relative text-center">
+          <Reveal>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance leading-[0.98]">
+              Scale your agency&rsquo;s outbound{' '}
+              <span className="font-serif-italic text-gradient-ember">today</span>.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <p className="mt-6 text-lg text-ink-500 max-w-xl mx-auto">
+              Join the top recruiting agencies using Quinton to find better candidates and close more clients.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="mt-10 flex justify-center">
+              <Button
+                className="bg-action-500 hover:bg-action-600 text-white h-12 px-6 rounded-full text-[15px] font-medium shadow-lift"
+                asChild
+              >
+                <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
+                  Get Started Now <ArrowRight className="ml-1.5 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

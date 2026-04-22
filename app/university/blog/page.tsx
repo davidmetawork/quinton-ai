@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Calendar, Clock, User, Search, Tag, TrendingUp, Star, ArrowRight } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, Search, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Reveal } from '@/components/Reveal'
 
 // Blog posts data
 const blogPosts = [
@@ -97,59 +98,64 @@ export default function BlogPage() {
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === 'All Posts' || post.category === selectedCategory
-    const matchesSearch = searchTerm === '' || 
+    const matchesSearch = searchTerm === '' ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-    
+
     return matchesCategory && matchesSearch
   })
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
+    <div className="bg-cream-100 text-ink-900">
       {/* Header Section */}
-      <section className="relative pt-24 pb-16 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
-        </div>
-        
+      <section className="relative pt-20 pb-16 md:pt-28 md:pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-ink opacity-60 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(255,138,61,0.10),transparent_60%)] pointer-events-none" />
+
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="flex items-center mb-8">
-            <Link href="/university" className="flex items-center text-gray-400 hover:text-white transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+            <Link href="/university" className="flex items-center text-ink-500 hover:text-ink-900 transition-colors text-[13px]">
+              <ArrowLeft className="w-4 h-4 mr-1.5" />
               Back to University
             </Link>
           </div>
-          
+
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Weekly <span className="inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic pb-1 px-8 -mx-8" style={{ fontFamily: 'Georgia, serif' }}>Insights</span>
-            </h1>
-            <p className="text-xl text-gray-400 mb-10 leading-relaxed">
-              Fresh industry trends, success stories, and advanced strategies published every week to keep you ahead of the recruiting curve.
-            </p>
-            
+            <Reveal>
+              <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-6 text-balance">
+                Weekly <span className="font-serif-italic text-gradient-ember">Insights</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="text-xl text-ink-500 mb-10 leading-relaxed">
+                Fresh industry trends, success stories, and advanced strategies published every week to keep you ahead of the recruiting curve.
+              </p>
+            </Reveal>
+
             {/* Search and Filter */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
-                <input
-                  type="text"
-                  placeholder="Search insights..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 px-4 py-2.5 bg-[#12121a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50"
-                />
+            <Reveal delay={0.1}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-ink-300 w-4 h-4" />
+                  <input
+                    type="text"
+                    placeholder="Search insights..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 px-4 py-2.5 bg-white border border-ink-100 shadow-soft rounded-lg text-ink-900 placeholder-ink-300 focus:outline-none focus:ring-2 focus:ring-ember-600/30"
+                  />
+                </div>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="px-4 py-2.5 bg-white border border-ink-100 shadow-soft rounded-lg text-ink-900 focus:outline-none focus:ring-2 focus:ring-ember-600/30"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
               </div>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-2.5 bg-[#12121a] border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50"
-              >
-                {categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -158,76 +164,80 @@ export default function BlogPage() {
       <section className="pb-24">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map(post => (
-              <Link key={post.id} href={`/university/blog/${post.id}`} className="group">
-                <article className="bg-[#12121a] rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all h-full flex flex-col">
-                  {/* Image */}
-                  <div className="aspect-video relative overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-violet-500 text-white text-[10px] font-bold px-2 py-1 uppercase tracking-widest rounded">
-                        {post.category}
-                      </span>
+            {filteredPosts.map((post, index) => (
+              <Reveal key={post.id} delay={index * 0.04}>
+                <Link href={`/university/blog/${post.id}`} className="group block h-full">
+                  <article className="bg-white rounded-2xl border border-ink-100 shadow-soft overflow-hidden hover:shadow-lift transition-all h-full flex flex-col">
+                    {/* Image */}
+                    <div className="aspect-video relative overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-ember-600/15 text-ember-700 text-[10px] font-semibold px-2 py-1 uppercase tracking-widest rounded">
+                          {post.category}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {new Date(post.publishDate).toLocaleDateString()}
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center gap-4 text-xs text-ink-500 mb-4">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {new Date(post.publishDate).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5" />
+                          {post.readTime}
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" />
-                        {post.readTime}
+
+                      <h3 className="text-xl font-semibold tracking-tight text-ink-900 mb-3 group-hover:text-ember-700 transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-ink-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="mt-auto flex items-center text-ink-900 font-semibold text-sm">
+                        <span>Read post</span>
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
-                    
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    
-                    <div className="mt-auto flex items-center text-white font-bold text-sm">
-                      <span>Read post</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </article>
-              </Link>
+                  </article>
+                </Link>
+              </Reveal>
             ))}
           </div>
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-24">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-gray-500" />
+              <div className="w-16 h-16 bg-cream-100 border border-ink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-ink-300" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">No posts found</h3>
-              <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+              <h3 className="text-xl font-semibold tracking-tight text-ink-900 mb-2">No posts found</h3>
+              <p className="text-ink-500">Try adjusting your search or filter criteria</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 border-t border-white/5 bg-[#06060a]">
+      <section className="py-24 border-t border-ink-100 bg-cream-50">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Never miss an update</h2>
-          <p className="text-gray-400 mb-10 text-lg">Get our weekly insights delivered straight to your inbox. Join 1,000+ recruiting professionals.</p>
-          <div className="max-w-md mx-auto">
-            <Button className="w-full h-14 bg-white text-black hover:bg-gray-100 font-bold" asChild>
-              <Link href="https://quinton.beehiiv.com/subscribe" target="_blank">
-                Subscribe to Newsletter
-              </Link>
-            </Button>
-          </div>
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-balance">Never miss an update</h2>
+            <p className="text-ink-500 mb-10 text-lg">Get our weekly insights delivered straight to your inbox. Join 1,000+ recruiting professionals.</p>
+            <div className="max-w-md mx-auto">
+              <Button className="w-full h-12 bg-action-500 hover:bg-action-600 text-white rounded-full text-[15px] font-medium shadow-lift" asChild>
+                <Link href="https://quinton.beehiiv.com/subscribe" target="_blank">
+                  Subscribe to Newsletter
+                </Link>
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

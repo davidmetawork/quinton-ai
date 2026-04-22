@@ -1,6 +1,9 @@
+"use client"
+
 import Link from 'next/link'
-import { ArrowLeft, BookOpen, Clock, CheckCircle, ArrowRight, Zap, Users, Target, Mail, BarChart3, Settings } from 'lucide-react'
+import { ArrowLeft, BookOpen, Clock, CheckCircle, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Reveal } from '@/components/Reveal'
 
 export default function QuickStartGuide() {
   const steps = [
@@ -67,108 +70,130 @@ export default function QuickStartGuide() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Header Section */}
-      <section className="relative pt-24 pb-16 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+    <div className="bg-cream-100 text-ink-900">
+      {/* ─────────────── HEADER ─────────────── */}
+      <section className="relative pt-20 pb-14 md:pt-24 md:pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-ink opacity-60 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(255,138,61,0.10),transparent_60%)] pointer-events-none" />
+
+        <div className="container relative mx-auto px-6 max-w-5xl">
           <div className="flex items-center mb-8">
-            <Link href="/university/docs" className="flex items-center text-gray-400 hover:text-white transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+            <Link href="/university/docs" className="flex items-center text-ink-500 hover:text-ink-900 transition-colors text-[13px]">
+              <ArrowLeft className="w-4 h-4 mr-1.5" />
               Back to Docs
             </Link>
           </div>
-          
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-violet-500/10 rounded-xl flex items-center justify-center">
-              <Zap className="w-6 h-6 text-violet-400" />
+
+          <Reveal>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-white border border-ink-100 shadow-soft rounded-xl flex items-center justify-center">
+                <Zap className="w-5 h-5 text-ember-600" />
+              </div>
+              <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-balance">
+                Quick Start Guide
+              </h1>
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Quick Start Guide</h1>
-          </div>
-          
-          <div className="flex flex-wrap gap-6 text-xs font-bold text-gray-500 uppercase tracking-widest">
-            <span className="flex items-center gap-2"><BookOpen className="w-3.5 h-3.5" /> 15 min read</span>
-            <span className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" /> 60 min setup</span>
-            <span className="flex items-center gap-2 text-green-400"><CheckCircle className="w-3.5 h-3.5" /> Beginner friendly</span>
-          </div>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <div className="flex flex-wrap gap-5 text-[11px] font-semibold text-ink-500 uppercase tracking-[0.2em]">
+              <span className="flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> 15 min read</span>
+              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> 60 min setup</span>
+              <span className="flex items-center gap-1.5 text-signal-600"><CheckCircle className="w-3.5 h-3.5" /> Beginner friendly</span>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Accomplishments Section */}
-      <section className="pb-24">
+      {/* ─────────────── CONTENT ─────────────── */}
+      <section className="pb-24 md:pb-28">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="bg-[#12121a] border border-violet-500/20 rounded-2xl p-8 mb-16 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Zap className="w-32 h-32 text-violet-500" />
-            </div>
-            <div className="relative z-10">
-              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                <Zap className="w-5 h-5 text-violet-400" />
-                What You'll Accomplish
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  "Complete Quinton AI workspace setup",
-                  "Install and configure Chrome extension",
-                  "Create first client and candidate searches",
-                  "Launch first automated campaign",
-                  "Master core features and workflows"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-gray-400 text-sm">
-                    <CheckCircle className="w-4 h-4 text-violet-400 flex-shrink-0" />
-                    {item}
-                  </div>
-                ))}
+          <Reveal>
+            <div className="bg-white border border-ember-600/20 rounded-2xl shadow-soft p-8 mb-16 relative overflow-hidden">
+              <div
+                aria-hidden
+                className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-gradient-to-br from-ember-500/15 to-ember-700/10 blur-3xl"
+              />
+              <div className="relative z-10">
+                <h2 className="text-[17px] font-semibold text-ink-900 mb-5 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-ember-600" />
+                  What You&rsquo;ll Accomplish
+                </h2>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {[
+                    "Complete Quinton AI workspace setup",
+                    "Install and configure Chrome extension",
+                    "Create first client and candidate searches",
+                    "Launch first automated campaign",
+                    "Master core features and workflows"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2.5 text-ink-700 text-sm">
+                      <CheckCircle className="w-4 h-4 text-signal-600 flex-shrink-0" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Step-by-Step */}
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">The 5-Step Process</h2>
-          <div className="space-y-6">
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-ink-900 mb-12 text-center text-balance">
+              The 5-Step <span className="font-serif-italic text-gradient-ember">Process</span>
+            </h2>
+          </Reveal>
+
+          <div className="space-y-5">
             {steps.map((step, index) => (
-              <div key={index} className="bg-[#12121a] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
-                <div className="flex flex-col md:flex-row items-start gap-8">
-                  <div className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center font-black text-xl flex-shrink-0">
-                    {step.number}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                      <h3 className="text-xl font-bold text-white">{step.title}</h3>
-                      <span className="text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-1 rounded uppercase tracking-widest">
-                        {step.estimatedTime}
-                      </span>
+              <Reveal key={index} delay={index * 0.04}>
+                <div className="bg-white border border-ink-100 shadow-soft rounded-2xl p-7">
+                  <div className="flex flex-col md:flex-row items-start gap-6">
+                    <div className="w-11 h-11 bg-ink-900 text-cream-100 rounded-full flex items-center justify-center font-semibold text-lg flex-shrink-0">
+                      {step.number}
                     </div>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-6">{step.description}</p>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {step.tasks.map((task, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-gray-500">
-                          <div className="w-1 h-1 rounded-full bg-violet-400"></div>
-                          {task}
-                        </div>
-                      ))}
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
+                        <h3 className="text-[17px] font-semibold text-ink-900">{step.title}</h3>
+                        <span className="text-[10px] font-semibold text-ink-500 bg-cream-100 border border-ink-100 px-2 py-1 rounded uppercase tracking-[0.2em] w-fit">
+                          {step.estimatedTime}
+                        </span>
+                      </div>
+                      <p className="text-ink-500 text-[14px] leading-relaxed mb-5">{step.description}</p>
+                      <div className="grid sm:grid-cols-2 gap-2.5">
+                        {step.tasks.map((task, i) => (
+                          <div key={i} className="flex items-center gap-2 text-[13px] text-ink-700">
+                            <div className="w-1 h-1 rounded-full bg-ember-600 flex-shrink-0" />
+                            {task}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Help Footer */}
-      <section className="py-24 border-t border-white/5 bg-[#06060a]">
+      {/* ─────────────── HELP ─────────────── */}
+      <section className="py-24 md:py-28 bg-cream-50 border-t border-ink-100">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-6">Need onboarding help?</h2>
-          <p className="text-gray-400 mb-10 text-lg">Our team can help you get fully set up in one 30-minute call.</p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-            <Link href="https://calendly.com/quintonai/30min">
-              Schedule Setup Call
-            </Link>
-          </Button>
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-balance mb-4">
+              Need onboarding{' '}
+              <span className="font-serif-italic text-gradient-ember">help</span>?
+            </h2>
+            <p className="text-ink-500 mb-10 text-lg">
+              Our team can help you get fully set up in one 30-minute call.
+            </p>
+            <Button
+              className="bg-action-500 hover:bg-action-600 text-white h-12 px-6 rounded-full text-[15px] font-medium shadow-lift"
+              asChild
+            >
+              <Link href="https://calendly.com/quintonai/30min">Schedule Setup Call</Link>
+            </Button>
+          </Reveal>
         </div>
       </section>
     </div>

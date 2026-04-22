@@ -1,45 +1,55 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Sparkles } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import { QuintonMark } from '@/components/product-mock/QuintonMark'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const signupUrl = 'https://dev.quinton.ai/sign-up'
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
+    { name: 'Product', href: '/about' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'University', href: '/university' },
+    { name: 'Blog', href: '/blog' },
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/5">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-cream-100/80 backdrop-blur-xl border-b border-ink-100/70'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2.5 group">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
-              <div className="relative bg-[#0a0a0f] rounded-full p-1 border border-white/10">
-                <Sparkles className="w-5 h-5 text-violet-400" />
-              </div>
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">
-              Quinton<span className="text-violet-400">.</span>
+          <Link href="/" className="flex items-center gap-1.5 group">
+            <QuintonMark className="w-5 h-5" />
+            <span className="text-[19px] font-semibold tracking-tight text-ink-900">
+              Quinton
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                className="text-ink-700 hover:text-ink-900 transition-colors text-sm"
               >
                 {item.name}
               </Link>
@@ -47,62 +57,66 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" className="text-gray-400 hover:text-white hover:bg-white/5" asChild>
-              <Link href="https://dev.quinton.ai" target="_blank" rel="noopener noreferrer">
-                Login
-              </Link>
-            </Button>
-            <Button className="bg-white text-black hover:bg-gray-100 font-medium" asChild>
+          <div className="hidden md:flex items-center gap-2">
+            <Link
+              href="https://dev.quinton.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-ink-700 hover:text-ink-900 px-3 py-2"
+            >
+              Login
+            </Link>
+            <Button
+              className="bg-ink-900 text-cream-100 hover:bg-ink-700 h-9 px-4 rounded-full font-medium"
+              asChild
+            >
               <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
-                Sign Up
+                Get started
               </Link>
             </Button>
           </div>
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-gray-400 hover:text-white"
+            className="md:hidden text-ink-700 hover:text-ink-900"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-4 space-y-1 bg-[#0a0a0f] border-t border-white/5">
-              <Link
-                href="/"
-                className="block px-3 py-3 text-gray-400 hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              {navigation.slice(1).map((item) => (
+            <div className="px-2 pt-2 pb-4 space-y-1 bg-cream-100 border-t border-ink-100">
+              {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-3 text-gray-400 hover:text-white transition-colors"
+                  className="block px-3 py-3 text-ink-700 hover:text-ink-900 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
               <div className="px-3 pt-4 space-y-3">
-                <Button variant="outline" className="w-full border-white/10 text-gray-300 hover:bg-white/5" asChild>
-                  <Link href="https://dev.quinton.ai" target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  className="w-full border-ink-100 text-ink-700 hover:bg-cream-200"
+                  asChild
+                >
+                  <Link
+                    href="https://dev.quinton.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Login
                   </Link>
                 </Button>
-                <Button className="w-full bg-white text-black hover:bg-gray-100" asChild>
+                <Button className="w-full bg-ink-900 text-cream-100 hover:bg-ink-700" asChild>
                   <Link href={signupUrl} target="_blank" rel="noopener noreferrer">
-                    Sign Up
+                    Get started
                   </Link>
                 </Button>
               </div>

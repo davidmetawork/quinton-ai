@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.75rem;
+    --background: 40 33% 97%;
+    --foreground: 30 20% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 20% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 20% 8%;
+    --primary: 30 20% 8%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 36 22% 93%;
+    --secondary-foreground: 30 20% 8%;
+    --muted: 36 22% 93%;
+    --muted-foreground: 28 10% 40%;
+    --accent: 36 22% 93%;
+    --accent-foreground: 30 20% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 33% 97%;
+    --border: 33 20% 88%;
+    --input: 33 20% 88%;
+    --ring: 217 91% 60%;
+    --radius: 1rem;
   }
 }
 
@@ -31,14 +31,18 @@
   * {
     @apply border-border;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply bg-[#0a0a0f] text-white antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-cream-100 text-ink-900 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  ::selection {
+    background-color: rgba(255, 94, 138, 0.2);
   }
 }
 
@@ -47,120 +51,123 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+
+  .text-pretty {
+    text-wrap: pretty;
   }
-  
-  .bg-grid-white {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='white' stroke-opacity='0.03'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+
+  .font-serif-italic {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .bg-gradient-ember {
+    background-image: linear-gradient(135deg, #FF8A3D 0%, #FF5E8A 50%, #E54D8A 100%);
+  }
+
+  .text-gradient-ember {
+    background-image: linear-gradient(135deg, #FF8A3D 0%, #FF5E8A 55%, #E54D8A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .bg-grid-ink {
+    background-image:
+      linear-gradient(to right, rgba(24, 20, 15, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(24, 20, 15, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-dots-ink {
+    background-image: radial-gradient(rgba(24, 20, 15, 0.08) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .mask-fade-edges-x {
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   }
 }
 
-/* Typography */
-.font-serif-italic {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  font-style: italic;
-}
-
-/* Prose Custom - Dark Mode Blog Content */
+/* Prose — light editorial */
 .prose-custom {
-  @apply text-gray-300;
+  @apply text-ink-700;
 }
 
 .prose-custom h2 {
-  @apply text-2xl font-bold text-white mt-12 mb-6 tracking-tight;
+  @apply text-3xl font-semibold text-ink-900 mt-12 mb-6 tracking-tight;
 }
 
 .prose-custom h3 {
-  @apply text-xl font-bold text-white mt-10 mb-4 tracking-tight;
+  @apply text-2xl font-semibold text-ink-900 mt-10 mb-4 tracking-tight;
 }
 
 .prose-custom h4 {
-  @apply text-lg font-bold text-white mt-8 mb-3;
+  @apply text-xl font-semibold text-ink-900 mt-8 mb-3;
 }
 
 .prose-custom p {
-  @apply text-gray-300 leading-relaxed mb-6;
+  @apply text-ink-700 leading-relaxed mb-6 text-[17px];
 }
 
 .prose-custom strong {
-  @apply text-white font-semibold;
+  @apply text-ink-900 font-semibold;
 }
 
 .prose-custom a {
-  @apply text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors;
+  @apply text-action-600 hover:text-action-700 underline underline-offset-2 transition-colors;
 }
 
 .prose-custom ul,
 .prose-custom ol {
-  @apply my-6 space-y-3 text-gray-300;
+  @apply my-6 space-y-3 text-ink-700;
 }
 
 .prose-custom li {
-  @apply text-gray-300 leading-relaxed;
+  @apply leading-relaxed;
 }
 
 .prose-custom blockquote {
-  @apply border-l-4 border-violet-500 pl-6 my-8 italic text-gray-400;
+  @apply border-l-2 border-ember-600 pl-6 my-8 font-serif-italic text-ink-700 text-xl;
 }
 
 .prose-custom code {
-  @apply bg-white/10 text-violet-300 px-2 py-1 rounded text-sm font-mono;
+  @apply bg-cream-200 text-ink-900 px-2 py-0.5 rounded text-sm font-mono;
 }
 
 .prose-custom pre {
-  @apply bg-[#12121a] border border-white/10 rounded-xl p-6 my-8 overflow-x-auto;
+  @apply bg-white border border-cream-300 rounded-xl p-6 my-8 overflow-x-auto shadow-soft;
 }
 
 .prose-custom hr {
-  @apply border-white/10 my-12;
+  @apply border-cream-300 my-12;
 }
 
-/* Animations */
-@keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 2s infinite;
-}
-
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-[#0a0a0f];
+  @apply bg-cream-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full border-4 border-solid border-[#0a0a0f] hover:bg-white/20 transition-colors;
+  @apply bg-cream-400 rounded-full border-4 border-solid border-cream-100 hover:bg-ink-300 transition-colors;
 }
 
 /* Video Responsive Container */
 .video-wrapper {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Play, Clock, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Reveal } from '@/components/Reveal'
 
 const videoCategories = [
   {
@@ -68,117 +69,137 @@ const videoCategories = [
 export default function VideoTutorialsPage() {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const allVideos = videoCategories.flatMap(category => 
+  const allVideos = videoCategories.flatMap(category =>
     category.videos.map(video => ({ ...video, category: category.title }))
   )
 
   const filteredVideos = allVideos.filter(video => {
-    return video.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    return video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
            video.description.toLowerCase().includes(searchTerm.toLowerCase())
   })
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Header Section */}
-      <section className="relative pt-24 pb-16 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 max-w-7xl relative z-10 text-center">
+    <div className="bg-cream-100 text-ink-900">
+      {/* ─────────────── HERO ─────────────── */}
+      <section className="relative pt-20 pb-14 md:pt-24 md:pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-dots-ink opacity-60 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(255,138,61,0.10),transparent_60%)] pointer-events-none" />
+
+        <div className="container relative mx-auto px-6 max-w-6xl text-center">
           <div className="flex items-center mb-8">
-            <Link href="/university" className="flex items-center text-gray-400 hover:text-white transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+            <Link href="/university" className="flex items-center text-ink-500 hover:text-ink-900 transition-colors text-[13px]">
+              <ArrowLeft className="w-4 h-4 mr-1.5" />
               Back to University
             </Link>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Video <span className="inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent italic pb-1 px-8 -mx-8" style={{ fontFamily: 'Georgia, serif' }}>Tutorials</span>
-          </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Step-by-step video guides to master every aspect of the Quinton platform. Learn at your own pace with our comprehensive library.
-          </p>
-          
-          <div className="max-w-xl mx-auto relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search tutorials..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-[#12121a] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50"
-            />
-          </div>
+
+          <Reveal>
+            <span className="inline-block text-ember-700 text-[12px] font-medium tracking-[0.2em] uppercase mb-4">
+              Videos
+            </span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="text-[44px] md:text-[60px] lg:text-[72px] leading-[0.95] tracking-[-0.03em] font-semibold text-balance max-w-4xl mx-auto">
+              Video{' '}
+              <span className="font-serif-italic text-gradient-ember">Tutorials</span>.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-6 text-lg md:text-xl text-ink-500 max-w-2xl mx-auto leading-relaxed text-balance">
+              Step-by-step video guides to master every aspect of the Quinton platform. Learn at your own pace with our comprehensive library.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <div className="mt-8 max-w-xl mx-auto relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-300 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search tutorials..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-11 pr-4 py-3 bg-white border border-ink-100 shadow-soft rounded-full text-[14px] text-ink-900 placeholder-ink-300 focus:outline-none focus:ring-2 focus:ring-action-500/30"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Video Grid */}
-      <section className="pb-24">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredVideos.map(video => (
-              <div 
-                key={video.id} 
-                className="bg-[#12121a] rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all group cursor-pointer"
-                onClick={() => window.open(`https://www.loom.com/share/${video.loomId}`, '_blank')}
-              >
-                <div className="aspect-video relative overflow-hidden">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center scale-75 group-hover:scale-100 transition-transform">
-                      <Play className="w-6 h-6 text-black ml-1 fill-black" />
+      {/* ─────────────── VIDEO GRID ─────────────── */}
+      <section className="pb-24 md:pb-28">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredVideos.map((video, i) => (
+              <Reveal key={video.id} delay={i * 0.04}>
+                <div
+                  className="bg-white rounded-2xl border border-ink-100 shadow-soft hover:shadow-lift transition-shadow overflow-hidden group cursor-pointer"
+                  onClick={() => window.open(`https://www.loom.com/share/${video.loomId}`, '_blank')}
+                >
+                  <div className="aspect-video relative overflow-hidden">
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-ink-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center scale-75 group-hover:scale-100 transition-transform shadow-lift">
+                        <Play className="w-5 h-5 text-ink-900 ml-0.5 fill-ink-900" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-3 right-3 bg-ink-900/80 backdrop-blur-md text-white text-[10px] font-semibold px-2 py-1 rounded flex items-center gap-1.5">
+                      <Clock className="w-3 h-3" />
+                      {video.duration}
                     </div>
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1.5">
-                    <Clock className="w-3 h-3" />
-                    {video.duration}
-                  </div>
-                </div>
 
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-violet-500/20 text-violet-400 text-[10px] font-bold px-2 py-0.5 uppercase tracking-widest rounded">
-                      {video.difficulty}
-                    </span>
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                      {video.category}
-                    </span>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <span className="bg-ember-600/15 text-ember-700 text-[10px] font-semibold px-2 py-0.5 uppercase tracking-[0.15em] rounded">
+                        {video.difficulty}
+                      </span>
+                      <span className="text-[10px] font-semibold text-ink-300 uppercase tracking-[0.2em]">
+                        {video.category}
+                      </span>
+                    </div>
+                    <h3 className="text-[17px] font-semibold tracking-tight text-ink-900 mb-2 group-hover:text-ember-700 transition-colors">
+                      {video.title}
+                    </h3>
+                    <p className="text-ink-500 text-[14px] leading-relaxed line-clamp-2">
+                      {video.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-violet-400 transition-colors">
-                    {video.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-                    {video.description}
-                  </p>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
 
           {filteredVideos.length === 0 && (
             <div className="text-center py-24">
-              <h3 className="text-xl font-bold text-white mb-2">No tutorials found</h3>
-              <p className="text-gray-500">Try a different search term</p>
+              <h3 className="text-xl font-semibold text-ink-900 mb-2">No tutorials found</h3>
+              <p className="text-ink-500">Try a different search term</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 border-t border-white/5 bg-[#06060a]">
+      {/* ─────────────── CTA ─────────────── */}
+      <section className="py-24 md:py-28 bg-cream-50 border-t border-ink-100">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">Need a live demo instead?</h2>
-          <p className="text-gray-400 mb-10 text-lg">Schedule a personal walkthrough with our team to see how Quinton can specifically help your agency.</p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100 font-bold" asChild>
-            <Link href="/about">
-              Learn More
-            </Link>
-          </Button>
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-balance mb-4">
+              Need a live demo{' '}
+              <span className="font-serif-italic text-gradient-ember">instead</span>?
+            </h2>
+            <p className="text-ink-500 mb-10 text-lg">
+              Schedule a personal walkthrough with our team to see how Quinton can specifically help your agency.
+            </p>
+            <Button
+              className="bg-action-500 hover:bg-action-600 text-white h-12 px-6 rounded-full text-[15px] font-medium shadow-lift"
+              asChild
+            >
+              <Link href="/about">Learn More</Link>
+            </Button>
+          </Reveal>
         </div>
       </section>
     </div>
