@@ -142,7 +142,11 @@ export default function HomePage() {
                 className="absolute -inset-x-10 -inset-y-6 rounded-[40px] bg-gradient-to-b from-white/60 to-transparent blur-2xl"
               />
               <div className="absolute -inset-6 rounded-[32px] shadow-glow-ember pointer-events-none" />
-              <InteractiveHeroMock className="relative" />
+              <div className="hero-mock-fit relative">
+                <div className="hero-mock-fit__inner">
+                  <InteractiveHeroMock />
+                </div>
+              </div>
 
               {/* floating callout */}
               <div className="hidden lg:block absolute -right-8 top-24 bg-white border border-ink-100 rounded-xl shadow-lift px-3 py-2.5 max-w-[220px]">

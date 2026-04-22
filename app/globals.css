@@ -99,6 +99,57 @@
   }
 }
 
+/* Scales the hero product mock down to fit narrow viewports without re-flowing
+   its desktop-sized children. The mock renders at a fixed natural width and is
+   visually scaled; the wrapper height is explicit so the layout flow is correct.
+   Uses tan(atan2()) trig trick to convert length ratio to unitless scalar. */
+.hero-mock-fit {
+  width: 100%;
+}
+.hero-mock-fit > .hero-mock-fit__inner {
+  width: 100%;
+}
+@supports (transform: scale(tan(atan2(1px, 1px)))) {
+  @media (max-width: 767px) {
+    .hero-mock-fit {
+      overflow: hidden;
+      height: calc((100vw - 24px) * 580 / 1100);
+    }
+    .hero-mock-fit > .hero-mock-fit__inner {
+      width: 1100px;
+      transform-origin: top left;
+      transform: scale(tan(atan2(calc(100vw - 24px), 1100px)));
+    }
+  }
+}
+/* Fallback for browsers without trig functions: hardcoded breakpoint scales */
+@supports not (transform: scale(tan(atan2(1px, 1px)))) {
+  @media (max-width: 380px) {
+    .hero-mock-fit { overflow: hidden; height: 170px; }
+    .hero-mock-fit > .hero-mock-fit__inner {
+      width: 1100px;
+      transform-origin: top left;
+      transform: scale(0.29);
+    }
+  }
+  @media (min-width: 381px) and (max-width: 500px) {
+    .hero-mock-fit { overflow: hidden; height: 200px; }
+    .hero-mock-fit > .hero-mock-fit__inner {
+      width: 1100px;
+      transform-origin: top left;
+      transform: scale(0.34);
+    }
+  }
+  @media (min-width: 501px) and (max-width: 767px) {
+    .hero-mock-fit { overflow: hidden; height: 310px; }
+    .hero-mock-fit > .hero-mock-fit__inner {
+      width: 1100px;
+      transform-origin: top left;
+      transform: scale(0.54);
+    }
+  }
+}
+
 /* Prose — light editorial */
 .prose-custom {
   @apply text-ink-700;
